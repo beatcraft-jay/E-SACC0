@@ -1,0 +1,2 @@
+main purple #8252f7
+very light blue #e4fdfb

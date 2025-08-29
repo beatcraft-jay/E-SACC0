@@ -1,0 +1,207 @@
+Project Structure
+Setup React App
+
+Use Create React App to set up your project.
+bash
+Copy code
+npx create-react-app e-sacco-app
+cd e-sacco-app
+Install Bootstrap
+
+Add Bootstrap for styling.
+bash
+Copy code
+npm install bootstrap
+Project Structure
+
+css
+Copy code
+e-sacco-app/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── Header.js
+│   │   ├── Dashboard.js
+│   │   ├── MemberForm.js
+│   │   ├── LoanForm.js
+│   │   └── Transactions.js
+│   ├── App.js
+│   └── index.js
+├── package.json
+└── ...
+Sample Code
+1. index.js
+
+javascript
+Copy code
+import React from 'react';
+import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+2. App.js
+
+javascript
+Copy code
+import React from 'react';
+import Header from './components/Header';
+import Dashboard from './components/Dashboard';
+
+const App = () => {
+  return (
+    <div>
+      <Header />
+      <Dashboard />
+    </div>
+  );
+};
+
+export default App;
+3. Header.js
+
+javascript
+Copy code
+import React from 'react';
+
+const Header = () => {
+  return (
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <a className="navbar-brand" href="#">E-Sacco</a>
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <a className="nav-link" href="#dashboard">Dashboard</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#members">Members</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#loans">Loans</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#transactions">Transactions</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
+
+export default Header;
+4. Dashboard.js
+
+javascript
+Copy code
+import React from 'react';
+import MemberForm from './MemberForm';
+import LoanForm from './LoanForm';
+import Transactions from './Transactions';
+
+const Dashboard = () => {
+  return (
+    <div className="container mt-4">
+      <h2>Dashboard</h2>
+      <MemberForm />
+      <LoanForm />
+      <Transactions />
+    </div>
+  );
+};
+
+export default Dashboard;
+5. MemberForm.js
+
+javascript
+Copy code
+import React from 'react';
+
+const MemberForm = () => {
+  return (
+    <div className="mb-4">
+      <h3>Add New Member</h3>
+      <form>
+        <div className="form-group">
+          <label>Name</label>
+          <input type="text" className="form-control" placeholder="Enter member name" />
+        </div>
+        <div className="form-group">
+          <label>Email</label>
+          <input type="email" className="form-control" placeholder="Enter email" />
+        </div>
+        <button type="submit" className="btn btn-primary">Add Member</button>
+      </form>
+    </div>
+  );
+};
+
+export default MemberForm;
+6. LoanForm.js
+
+javascript
+Copy code
+import React from 'react';
+
+const LoanForm = () => {
+  return (
+    <div className="mb-4">
+      <h3>Apply for Loan</h3>
+      <form>
+        <div className="form-group">
+          <label>Loan Amount</label>
+          <input type="number" className="form-control" placeholder="Enter amount" />
+        </div>
+        <div className="form-group">
+          <label>Loan Purpose</label>
+          <input type="text" className="form-control" placeholder="Purpose of the loan" />
+        </div>
+        <button type="submit" className="btn btn-primary">Apply</button>
+      </form>
+    </div>
+  );
+};
+
+export default LoanForm;
+7. Transactions.js
+
+javascript
+Copy code
+import React from 'react';
+
+const Transactions = () => {
+  return (
+    <div>
+      <h3>Recent Transactions</h3>
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+            <th scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Sample data */}
+          <tr>
+            <td>2023-11-01</td>
+            <td>Member Deposit</td>
+            <td>500,000 UGX</td>
+          </tr>
+          <tr>
+            <td>2023-10-30</td>
+            <td>Loan Disbursed</td>
+            <td>1,000,000 UGX</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default Transactions;
+Running Your App
+To start your app, run:
+
+bash
+Copy code
+npm start

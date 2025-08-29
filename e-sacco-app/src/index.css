@@ -1,0 +1,138 @@
+*,*::before,*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  --background-color: #f6f6f6;
+  --foreground-color: #A64D79;
+  --prmary-text-color: #0a0a0a;
+  --secondary-text-color: #ffffff;
+  --toggle-bg: #1A1A1D;
+  --toggle-fg: #3B1C32;
+}
+
+[data-theme="dark"] {
+  --background-color: #1A1A1D;
+  --foreground-color: #3B1C32;
+  --prmary-text-color: #e1d2f2;
+  --secondary-text-color: #A64D79;
+  --toggle-bg: #e1d2f2;
+  --toggle-fg: #A64D79;
+}
+
+.box-area{
+  width: 930px;
+}
+
+.right-box{
+  padding: 40px 30px 40px 40px;
+}
+
+::placeholder{
+  font-size: 16px;
+}
+
+.bg{
+  width: 440px;
+  background-repeat: no-repeat;
+  background-image: url(./img/cool-background.png);
+}
+
+.logo{
+  margin-top: 150px;
+}
+
+.icons{
+  color: #BE598F;
+}
+
+.main-text{
+  font-family: "Nunito", sans-serif;
+  font-weight: 300;
+}
+
+.head-text{
+  font-family: "Roboto Mono", monospace;
+  font-weight: 400;
+}
+
+.small-text{
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.password-toggle-icon{
+  color: #b70afd;
+  position: absolute;
+  top: 6px;
+  right: 25px;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.dark{
+  background-color: #213547 !important; 
+  color: #ffffff !important;
+}
+
+.light{
+  background-color: #ffffff !important; 
+  color: #213547 !important;
+}
+
+@media (max-width: 760px) {
+  .box-area{
+    margin: 0px;
+    width: 370px;
+  }
+
+  .left-box{
+    height: fit-content;
+    overflow: hidden;
+  }
+
+  .right-box{
+    padding: 20px;
+  }
+
+  .bg{
+    background-image: url(./img/cool-background.png);
+    width: 370px;
+    
+  }
+
+  .logo{
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 990px) {
+  .box-area{
+    margin: 0px;
+    width: 370px;
+  }
+
+  .left-box{
+    height: fit-content;
+    overflow: hidden;
+  }
+
+  .right-box{
+    padding: 20px;
+    width: auto;
+  }
+
+  .bg{
+    background-image: url(./img/cool-background.png);
+    width: 370px;
+    
+  }
+
+  .logo{
+    margin-top: 0;
+  }
+}
