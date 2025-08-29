@@ -69,7 +69,7 @@ const Login = () => {
                     </div>
                     
                     <div class="input-group mb-3">
-                        <button class="btn btn-lg btn-primary w-100 fs-6 main-text" type="button">LOGIN</button>
+                        <button class="btn btn-lg btn-primary w-100 fs-6 main-text" type="button"><Link to="/dashboard">LOGIN</Link></button>
                     </div>
                     <div class="main-text">No account? <Link to="signup">Sign up</Link></div>
                 </div>
