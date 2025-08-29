@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
 import { CreditCard, ArrowDownLeft, ArrowUpRight } from 'react-bootstrap-icons';
+import { format } from 'date-fns';
 
-// Format currency for Kenyan Shillings
+// Format currency for Ugandan Shillings
 function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-KE', {
+  return new Intl.NumberFormat('en-UG', {
     style: 'currency',
-    currency: 'KES',
+    currency: 'USH',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);
@@ -95,17 +96,16 @@ function Loans() {
 
   if (!isAuthenticated) {
     return (
-      <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '24rem' }}>
-        <div className="text-center">
-          <h3 className="mb-2">Sign In Required</h3>
-          <p className="text-muted">Please sign in to view your loans.</p>
+        <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '24rem' }}>
+          <div className="text-center">
+            <h3 className="mb-2">Sign In Required</h3>
+            <p className="text-muted">Please sign in to view your loans.</p>
+          </div>
         </div>
-      </div>
     );
   }
 
   return (
-    <AppLayout>
       <div className="my-4">
         {/* Header */}
         <h1 className="display-6 fw-bold mb-4">Loans</h1>
@@ -123,7 +123,7 @@ function Loans() {
                   type="number"
                   value={loanAmount}
                   onChange={(e) => setLoanAmount(e.target.value)}
-                  placeholder="Enter amount (KES)"
+                  placeholder="Enter amount (USH)"
                   required
                 />
               </Form.Group>
@@ -196,7 +196,7 @@ function Loans() {
                     <div className="flex-grow-1">
                       <p className="fw-medium mb-1">{transaction.description}</p>
                       <p className="text-muted small">
-                        {format(transaction.date, 'MMM dd, yyyy')}
+                        {format(new Date(transaction.date), 'MMM dd, yyyy')}
                       </p>
                     </div>
                     <div className={`fw-bold ${getTransactionColor(transaction.transactionType)}`}>
@@ -216,7 +216,6 @@ function Loans() {
           </Card.Body>
         </Card>
       </div>
-    </AppLayout>
   );
 }
 

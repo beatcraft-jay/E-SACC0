@@ -20,15 +20,16 @@ function useAuth() {
   };
 }
 
-// Format currency for Kenyan Shillings
+// Format currency for Ugandan Shillings
 function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-KE', {
-    style: 'currency',
-    currency: 'KES',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
+    return new Intl.NumberFormat('en-UG', {
+      style: 'currency',
+      currency: 'USH',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  }
+  
 
 // Transaction icon mapping
 function getTransactionIcon(type) {
@@ -113,7 +114,7 @@ function Dashboard() {
 
   // Mock dashboard data
   const dashboardData = {
-    user: { firstName: 'John', memberNumber: '12345' },
+    user: { firstName: 'Ssentema', memberNumber: '12345' },
     totalSavings: 10000,
     totalLoanBalance: 5000,
     totalShares: 2000,
@@ -253,12 +254,11 @@ function Dashboard() {
   } = dashboardData;
 
   return (
-    <AppLayout>
-      <div className="my-4">
+      <div>
         {/* Welcome Section */}
         <div className="mb-4">
-          <h1 className="display-6 fw-bold">Welcome back, {dashboardUser.firstName}!</h1>
-          <p className="text-muted">
+          <h1 className="display-6">Welcome back, {dashboardUser.firstName}!</h1>
+          <p className="main-text text-muted">
             Member #{dashboardUser.memberNumber} • Last login: {format(new Date(), 'PPp')}
           </p>
         </div>
@@ -266,54 +266,54 @@ function Dashboard() {
         {/* Summary Cards */}
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
           <div className="col">
-            <Card>
-              <Card.Header className="d-flex align-items-center justify-content-between">
+            <Card className='shadow'>
+              <Card.Header className="main-text shadow d-flex align-items-center justify-content-between">
                 <Card.Title as="h6">Total Savings</Card.Title>
                 <BsPiggyBank className="text-success" size={16} />
               </Card.Header>
               <Card.Body>
-                <div className="h3 fw-bold text-success">{formatCurrency(totalSavings)}</div>
-                <p className="text-muted small">+2.5% from last month</p>
+                <div className="head-text h3 text-success">{formatCurrency(totalSavings)}</div>
+                <p className="small-text text-muted small">+2.5% from last month</p>
               </Card.Body>
             </Card>
           </div>
           <div className="col">
-            <Card>
-              <Card.Header className="d-flex align-items-center justify-content-between">
+            <Card className='shadow'>
+              <Card.Header className="main-text shadow d-flex align-items-center justify-content-between">
                 <Card.Title as="h6">Active Loans</Card.Title>
                 <BsCreditCard className="text-warning" size={16} />
               </Card.Header>
               <Card.Body>
-                <div className="h3 fw-bold text-warning">{formatCurrency(totalLoanBalance)}</div>
-                <p className="text-muted small">
+                <div className="head-text h3 text-warning">{formatCurrency(totalLoanBalance)}</div>
+                <p className="small-text text-muted small">
                   {activeLoans.length} active loan{activeLoans.length !== 1 ? 's' : ''}
                 </p>
               </Card.Body>
             </Card>
           </div>
           <div className="col">
-            <Card>
-              <Card.Header className="d-flex align-items-center justify-content-between">
+            <Card className='shadow'>
+              <Card.Header className="main-text shadow d-flex align-items-center justify-content-between">
                 <Card.Title as="h6">Shares Value</Card.Title>
                 <BsGraphUp className="text-primary" size={16} />
               </Card.Header>
               <Card.Body>
-                <div className="h3 fw-bold text-primary">{formatCurrency(totalShares)}</div>
-                <p className="text-muted small">+5.2% annual return</p>
+                <div className="head-text h3 text-primary">{formatCurrency(totalShares)}</div>
+                <p className="small-text text-muted small">+5.2% annual return</p>
               </Card.Body>
             </Card>
           </div>
           <div className="col">
-            <Card>
-              <Card.Header className="d-flex align-items-center justify-content-between">
+            <Card className='shadow'>
+              <Card.Header className="main-text shadow d-flex align-items-center justify-content-between">
                 <Card.Title as="h6">Net Worth</Card.Title>
                 <BsWallet className="text-purple" size={16} />
               </Card.Header>
               <Card.Body>
-                <div className="h3 fw-bold text-purple">
+                <div className="head-text h3 text-purple">
                   {formatCurrency(totalSavings + totalShares - totalLoanBalance)}
                 </div>
-                <p className="text-muted small">Total assets minus liabilities</p>
+                <p className="small-text text-muted small">Total assets</p>
               </Card.Body>
             </Card>
           </div>
@@ -323,10 +323,10 @@ function Dashboard() {
         <div className="row row-cols-1 row-cols-lg-2 g-4 mt-4">
           {/* Savings Accounts */}
           <div className="col">
-            <Card>
-              <Card.Header className="d-flex align-items-center justify-content-between">
+            <Card className='shadow'>
+              <Card.Header className="main-text shadow d-flex align-items-center justify-content-between">
                 <Card.Title as="h5">Savings Accounts</Card.Title>
-                <Button variant="outline-primary" size="sm">
+                <Button variant="outline-dark" size="sm">
                   <BsPlus className="me-2" size={16} />
                   New Account
                 </Button>
@@ -339,13 +339,13 @@ function Dashboard() {
                       className="d-flex align-items-center justify-content-between p-3 border rounded mb-3"
                     >
                       <div>
-                        <p className="fw-medium mb-1">{account.accountName}</p>
-                        <p className="text-muted small">{account.accountNumber}</p>
+                        <p className="main-text fw-medium mb-1">{account.accountName}</p>
+                        <p className="small-text text-muted small">{account.accountNumber}</p>
                       </div>
                       <div className="text-end">
-                        <p className="fw-bold mb-1">{formatCurrency(account.balance)}</p>
+                        <p className="main-text mb-1">{formatCurrency(account.balance)}</p>
                         <span
-                          className={`badge ${account.status === 'active' ? 'bg-primary' : 'bg-secondary'}`}
+                          className={`badge px-4 py-2 ${account.status === 'active' ? 'bg-dark' : 'bg-secondary'}`}
                         >
                           {account.status}
                         </span>
@@ -375,10 +375,10 @@ function Dashboard() {
 
           {/* Recent Transactions */}
           <div className="col">
-            <Card>
-              <Card.Header className="d-flex align-items-center justify-content-between">
+            <Card className='shadow'>
+              <Card.Header className="main-text shadow d-flex align-items-center justify-content-between">
                 <Card.Title as="h5">Recent Transactions</Card.Title>
-                <Button variant="outline-primary" size="sm">
+                <Button variant="outline-dark" size="sm">
                   <BsEye className="me-2" size={16} />
                   View All
                 </Button>
@@ -386,17 +386,17 @@ function Dashboard() {
               <Card.Body>
                 <div>
                   {recentTransactions.map((transaction) => (
-                    <div key={transaction._id} className="d-flex align-items-center gap-3 mb-3">
+                    <div key={transaction._id} className="main-text d-flex align-items-center gap-3 mb-3">
                       <div className="d-flex align-items-center justify-content-center rounded-circle bg-light p-2">
                         {getTransactionIcon(transaction.transactionType)}
                       </div>
                       <div className="flex-grow-1">
                         <p className="fw-medium mb-1">{transaction.description}</p>
-                        <p className="text-muted small">
+                        <p className="small-text text-muted small">
                           {format(transaction._creationTime, 'MMM dd, yyyy')}
                         </p>
                       </div>
-                      <div className={`fw-bold ${getTransactionColor(transaction.transactionType)}`}>
+                      <div className={`main-text ${getTransactionColor(transaction.transactionType)}`}>
                         {['deposit', 'interest'].includes(transaction.transactionType)
                           ? '+'
                           : '-'}
@@ -423,7 +423,6 @@ function Dashboard() {
           </div>
         </div>
       </div>
-    </AppLayout>
   );
 }
 

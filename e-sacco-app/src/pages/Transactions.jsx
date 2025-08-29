@@ -4,15 +4,16 @@ import { Wallet, ArrowUpRight, ArrowDownLeft, CreditCard, GraphUp } from 'react-
 import { format } from 'date-fns';
 import AppLayout from '../components/AppLayout.jsx';
 
-// Format currency for Kenyan Shillings
+// Format currency for Ugandan Shillings
 function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-KE', {
+  return new Intl.NumberFormat('en-UG', {
     style: 'currency',
-    currency: 'KES',
+    currency: 'USH',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);
 }
+
 
 // Transaction icon mapping
 function getTransactionIcon(type) {
@@ -115,16 +116,16 @@ function Transactions() {
       </div>
     );
   }
+  
 
   return (
-    <AppLayout>
-      <div className="my-4">
+      <div>
         {/* Header */}
-        <h1 className="display-6 fw-bold mb-4">Transactions</h1>
+        <h1 className=" display-6 mb-4">Transactions</h1>
 
         {/* Filter Transactions */}
-        <Card className="mb-4">
-          <Card.Header>
+        <Card className="shadow main-text mb-4">
+          <Card.Header className='shadow'>
             <Card.Title as="h5">Filter Transactions</Card.Title>
           </Card.Header>
           <Card.Body>
@@ -141,8 +142,8 @@ function Transactions() {
         </Card>
 
         {/* Transaction History */}
-        <Card>
-          <Card.Header>
+        <Card className='shadow'>
+          <Card.Header className='shadow main-text'>
             <Card.Title as="h5">Transaction History</Card.Title>
           </Card.Header>
           <Card.Body>
@@ -154,12 +155,12 @@ function Transactions() {
                       {getTransactionIcon(transaction.transactionType)}
                     </div>
                     <div className="flex-grow-1">
-                      <p className="fw-medium mb-1">{transaction.description}</p>
-                      <p className="text-muted small">
+                      <p className="main-text fw-medium mb-1">{transaction.description}</p>
+                      <p className="small-text text-muted small">
                         {format(transaction.date, 'MMM dd, yyyy')}
                       </p>
                     </div>
-                    <div className={`fw-bold ${getTransactionColor(transaction.transactionType)}`}>
+                    <div className={`head-text ${getTransactionColor(transaction.transactionType)}`}>
                       {['deposit', 'interest', 'loan_disbursement', 'dividend'].includes(transaction.transactionType) ? '+' : '-'}
                       {formatCurrency(Math.abs(transaction.amount))}
                     </div>
@@ -176,7 +177,6 @@ function Transactions() {
           </Card.Body>
         </Card>
       </div>
-    </AppLayout>
   );
 }
 

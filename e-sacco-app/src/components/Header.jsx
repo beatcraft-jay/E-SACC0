@@ -1,5 +1,6 @@
 import { Navbar, Form, FormControl, Button, Badge } from 'react-bootstrap';
-import { Bell, Search } from 'react-bootstrap-icons';
+import { BsBell, BsSearch } from 'react-icons/bs'; // Use react-icons/bs
+import { Link } from 'react-router-dom'; // Add missing import
 
 // Mock useUser hook
 function useUser() {
@@ -13,27 +14,24 @@ const mockDashboardData = {
   unreadNotificationsCount: 5, // Mock notification count
 };
 
-function Header() {
+function Header({ onToggleSidebar }) {
   const { isAuthenticated } = useUser();
   const dashboardData = isAuthenticated ? mockDashboardData : null;
 
   return (
     <Navbar bg="white" className="border-bottom px-4 py-3" sticky="top">
-      <div className="d-flex align-items-center gap-3 w-100">
+      <div className="main-text d-flex align-items-center gap-3 w-100">
         <div className="d-flex align-items-center gap-3">
           <Button
             variant="outline-primary"
             size="sm"
             className="d-lg-none"
-            onClick={() => {
-              // Simulate sidebar toggle (client-side only, no SidebarProvider)
-              document.querySelector('.sidebar')?.classList.toggle('d-none');
-            }}
+            onClick={onToggleSidebar}
           >
             ☰
           </Button>
           <Form className="position-relative" style={{ maxWidth: '400px' }}>
-            <Search className="position-absolute top-50 start-0 translate-middle-y ms-3" size={16} />
+            <BsSearch className="position-absolute top-50 start-0 translate-middle-y ms-3" size={16} />
             <FormControl
               type="search"
               placeholder="Search transactions, accounts..."
@@ -42,17 +40,23 @@ function Header() {
           </Form>
         </div>
         <div className="ms-auto">
-          <Button variant="link" className="position-relative p-0">
-            <Bell size={20} />
+          <Button
+            as={Link}
+            to="/notifications"
+            variant="link"
+            className="nav-btn-bg position-relative p-0"
+          >
+            <BsBell size={20} />
             {dashboardData && dashboardData.unreadNotificationsCount > 0 && (
               <Badge
+                pill
                 bg="danger"
-                className="position-absolute top-0 end-0 rounded-circle d-flex align-items-center justify-content-center"
-                style={{ width: '20px', height: '20px', fontSize: '10px' }}
+                className="position-absolute top-0 start-100 translate-middle"
               >
                 {dashboardData.unreadNotificationsCount > 9
                   ? '9+'
                   : dashboardData.unreadNotificationsCount}
+                <span className="visually-hidden">unread notifications</span>
               </Badge>
             )}
           </Button>

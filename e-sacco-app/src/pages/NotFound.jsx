@@ -9,7 +9,6 @@ function AppLayout({ children }) {
 
 function NotFound() {
   return (
-    <AppLayout>
       <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 text-center">
         <ExclamationTriangle size={48} className="text-warning mb-3" />
         <h1 className="display-4 fw-bold mb-3">404 - Page Not Found</h1>
@@ -20,7 +19,6 @@ function NotFound() {
           Return to Home
         </Button>
       </div>
-    </AppLayout>
   );
 }
 

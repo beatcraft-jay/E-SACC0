@@ -24,6 +24,25 @@
   --toggle-fg: #A64D79;
 }
 
+.nav-height{
+  height: 100vh;
+  position: sticky;
+}
+
+.nav-btn-bg {
+  color: #000 !important; /* black text by default */
+  transition: all 0.2s ease-in-out !important; /* smooth hover/active effect */
+}
+
+.nav-btn-bg:hover {
+  color: #791d7c !important; /* purple text on hover */
+}
+
+.nav-clicked {
+  background-color: rgba(128, 0, 128, 0.1) !important; 
+  color: #791d7c !important;
+}
+
 .box-area{
   width: 930px;
 }
@@ -37,8 +56,7 @@
 }
 
 .bg{
-  width: 440px;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-image: url(./img/cool-background.png);
 }
 
@@ -136,5 +154,24 @@
 
   .logo{
     margin-top: 0;
+  }
+}
+
+.sidebar {
+  transition: transform 0.3s ease;
+}
+
+.main-content {
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 991.98px) {
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .sidebar:not(.d-block) {
+    transform: translateX(-100%);
   }
 }

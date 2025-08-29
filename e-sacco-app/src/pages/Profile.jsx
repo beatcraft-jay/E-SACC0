@@ -52,12 +52,12 @@ function Profile() {
   // Mock user data
   const user = {
     isAuthenticated: true, // Change to false to test unauthenticated state
-    firstName: 'John',
-    lastName: 'Doe',
+    firstName: 'Ssentema',
+    lastName: 'Derrick',
     memberNumber: '12345',
-    email: 'john.doe@example.com',
-    phone: '+254 712 345 678',
-    address: '123 Nairobi Street, Nairobi, Kenya',
+    email: 'derrick.doe@example.com',
+    phone: '+256 712 345 678',
+    address: '123 Kampala road, Kampala, Uganda',
   };
 
   // State for edit form
@@ -110,10 +110,9 @@ function Profile() {
   }
 
   return (
-    <AppLayout>
       <div className="my-4">
         {/* Header */}
-        <h1 className="display-6 fw-bold mb-4">Profile</h1>
+        <h1 className="main-text display-6 mb-4">Profile</h1>
 
         {/* Profile Overview */}
         <Card className="mb-4">
@@ -222,7 +221,6 @@ function Profile() {
           </Card.Body>
         </Card>
       </div>
-    </AppLayout>
   );
 }
 

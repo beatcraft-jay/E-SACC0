@@ -4,15 +4,16 @@ import { GraphUp } from 'react-bootstrap-icons'; // Replaced TrendingUp with Gra
 import { format } from 'date-fns';
 import AppLayout from '../components/AppLayout.jsx';
 
-// Format currency for Kenyan Shillings
+// Format currency for Ugandan Shillings
 function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-KE', {
+  return new Intl.NumberFormat('en-UG', {
     style: 'currency',
-    currency: 'KES',
+    currency: 'USH',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);
 }
+
 
 // Transaction icon mapping
 function getTransactionIcon(type) {
@@ -73,7 +74,6 @@ function Shares() {
   }
 
   return (
-    <AppLayout>
       <div className="my-4">
         {/* Header */}
         <h1 className="display-6 fw-bold mb-4">Shares</h1>
@@ -155,7 +155,6 @@ function Shares() {
           </Card.Body>
         </Card>
       </div>
-    </AppLayout>
   );
 }
 
