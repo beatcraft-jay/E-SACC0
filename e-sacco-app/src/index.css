@@ -30,18 +30,37 @@
 }
 
 .nav-btn-bg {
-  color: #000 !important; /* black text by default */
-  transition: all 0.2s ease-in-out !important; /* smooth hover/active effect */
+  color: #000 !important; 
+  transition: all 0.3s ease-in-out !important; 
 }
 
 .nav-btn-bg:hover {
-  color: #791d7c !important; /* purple text on hover */
+  color: #791d7c !important;
 }
 
 .nav-clicked {
   background-color: rgba(128, 0, 128, 0.1) !important; 
   color: #791d7c !important;
 }
+
+.logo-area {
+  background-color: transparent !important; 
+  box-shadow: none !important;   
+}
+
+.transparent-input {
+  background-color: transparent !important; 
+  border: none !important;                 
+  border-bottom: 1px solid #6f42c1;        
+  color: #fff;                             
+  outline: none !important;
+  box-shadow: none !important;              
+}
+
+.transparent-input::placeholder {
+  color: rgba(255, 255, 255, 0.6); 
+}
+
 
 .box-area{
   width: 930px;
@@ -174,4 +193,118 @@
   .sidebar:not(.d-block) {
     transform: translateX(-100%);
   }
+}
+
+/*savings and withdral modal*/
+
+.network-options {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.network-option {
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background: #f8f9fa;
+}
+
+.network-option img {
+  height: 80px;
+  width: 80px;
+  object-fit: contain;
+}
+
+.network-option:hover {
+  border-color: #6f42c1; /* Bootstrap primary */
+  box-shadow: 0 4px 12px rgba(111, 66, 193, 0.2);
+}
+
+.network-option.selected {
+  border-color: #6f42c1;
+  box-shadow: 0 4px 12px rgba(111, 66, 193, 0.4);
+  background: rgba(111, 66, 193, 0.05);
+}
+
+.min-h-200px {
+  min-height: 200px;
+}
+.text-purple {
+  color: #6b7280;
+}
+.sidebar {
+  transition: transform 0.3s ease-in-out;
+}
+@media (max-width: 991px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1000;
+    transform: translateX(-100%);
+  }
+  .sidebar.d-block {
+    transform: translateX(0);
+  }
+}
+
+.chat-area {
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+.nav-btn-bg:hover {
+  background-color: #f8f9fa;
+}
+.tooltip-inner {
+  white-space: pre-line; /* Support line breaks in tooltip */
+}
+
+.progress {
+  height: 1.5rem;
+}
+.progress-bar {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.phone-chat {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.phone-chat .card-header {
+  background-color: #a62db1;
+  color: white;
+}
+.phone-chat .card-body {
+  background-color: #fff;
+}
+.phone-chat .card-footer {
+  background-color: #f8f9fa;
+}
+
+.emoji {
+  font-size: 1.5rem;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.tick {
+  vertical-align: middle;
+}
+
+.conversation-card {
+  max-height: 300px; /* Adjust as needed */
+}
+.conversation-card-body {
+  overflow-y: auto;
+}
+.unread-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
 }

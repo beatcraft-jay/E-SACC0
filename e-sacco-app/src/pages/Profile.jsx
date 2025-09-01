@@ -110,13 +110,13 @@ function Profile() {
   }
 
   return (
-      <div className="my-4">
+      <div className="main-text">
         {/* Header */}
         <h1 className="main-text display-6 mb-4">Profile</h1>
 
         {/* Profile Overview */}
-        <Card className="mb-4">
-          <Card.Header>
+        <Card className="shadow mb-4">
+          <Card.Header className='shadow'>
             <Card.Title as="h5">Personal Information</Card.Title>
           </Card.Header>
           <Card.Body>
@@ -135,8 +135,8 @@ function Profile() {
         </Card>
 
         {/* Edit Profile Form */}
-        <Card>
-          <Card.Header>
+        <Card className='shadow'>
+          <Card.Header className='shadow'>
             <Card.Title as="h5">Edit Profile</Card.Title>
           </Card.Header>
           <Card.Body>

@@ -16,7 +16,7 @@ const mockNotifications = [
   {
     _id: '1',
     type: 'transaction',
-    message: 'Your deposit of KES 1,000 was successful.',
+    message: 'Your deposit of USH 1,000 was successful.',
     date: new Date(),
     read: false,
   },

@@ -16,6 +16,7 @@ import AppSidebar from './components/AppSidebar.jsx';
 import Notifications from './pages/Notifications.jsx';
 import Settings from './pages/Settings.jsx';
 import Forum from './pages/Forum.jsx';
+import { NotificationProvider } from './context/NotificationContext.jsx';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -25,6 +26,7 @@ function App() {
   };
 
   return (
+    <NotificationProvider>
     <BrowserRouter>
       <div className="d-flex">
         <AppSidebar isOpen={sidebarOpen} />
@@ -51,6 +53,7 @@ function App() {
         </div>
       </div>
     </BrowserRouter>
+    </NotificationProvider>
   );
 }
 

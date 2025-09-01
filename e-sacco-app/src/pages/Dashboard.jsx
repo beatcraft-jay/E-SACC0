@@ -272,7 +272,7 @@ function Dashboard() {
                 <BsPiggyBank className="text-success" size={16} />
               </Card.Header>
               <Card.Body>
-                <div className="head-text h3 text-success">{formatCurrency(totalSavings)}</div>
+                <div className="small-text h3 text-success">{formatCurrency(totalSavings)}</div>
                 <p className="small-text text-muted small">+2.5% from last month</p>
               </Card.Body>
             </Card>

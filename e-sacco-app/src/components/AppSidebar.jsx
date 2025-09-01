@@ -59,7 +59,7 @@ function AppSidebar({ isOpen }) {
     >
       <Card className="bg h-100 border-end rounded-0">
         <Card.Header>
-          <div className="bg d-flex align-items-center gap-3">
+          <div className="logo-area d-flex align-items-center gap-3">
             <div>
               <Image
                 src="../assets/img/LOGO.png"
@@ -117,7 +117,7 @@ function AppSidebar({ isOpen }) {
         <Card.Footer className="p-4">
           {isAuthenticated ? (
             <Link to="/profile" className="text-decoration-none">
-              <div className="bg d-flex align-items-center gap-3  rounded bg-light">
+              <div className="logo-area d-flex align-items-center gap-3 rounded">
                 <Image
                   src={avatar}
                   roundedCircle

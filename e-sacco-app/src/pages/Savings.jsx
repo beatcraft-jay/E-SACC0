@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Button, Card, Form, Modal, Row, Col } from 'react-bootstrap';
 import { PiggyBank, ArrowUpRight, ArrowDownLeft, Phone, Building } from 'react-bootstrap-icons';
 import { format } from 'date-fns';
-import AppLayout from '../components/AppLayout.jsx';
+import Airtel from "../assets/img/airtelMoney.jpeg"
+import momo from "../assets/img/momo.png"
 
 // Format currency for Ugandan Shillings
 function formatCurrency(amount) {
@@ -136,20 +137,20 @@ function Savings() {
   }
 
   return (
-    <div className="my-4">
+    <div>
       {/* Header */}
-      <h1 className="display-6 fw-bold mb-4">Savings</h1>
+      <h1 className="display-6 mb-4">Savings</h1>
 
       {/* Action Buttons */}
-      <Card className="mb-4">
-        <Card.Header>
+      <Card className="main-text shadow mb-4">
+        <Card.Header className='shadow'>
           <Card.Title as="h5">Quick Actions</Card.Title>
         </Card.Header>
-        <Card.Body>
+        <Card.Body className='main-text shadow'>
           <Row className="g-3">
             <Col md={6}>
               <Button 
-                variant="success" 
+                variant="outline-primary" 
                 className="w-100 d-flex align-items-center justify-content-center gap-2 py-3"
                 onClick={openDepositModal}
               >
@@ -172,11 +173,11 @@ function Savings() {
       </Card>
 
       {/* Create Savings Account */}
-      <Card className="mb-4">
-        <Card.Header>
+      <Card className="main-text shadow mb-4">
+        <Card.Header className="shadow">
           <Card.Title as="h5">Create New Savings Account</Card.Title>
         </Card.Header>
-        <Card.Body>
+        <Card.Body className="main-text shadow">
           <Form onSubmit={handleCreateAccount}>
             <Form.Group className="mb-3">
               <Form.Label>Account Name</Form.Label>
@@ -196,8 +197,8 @@ function Savings() {
       </Card>
 
       {/* Savings Accounts */}
-      <Card className="mb-4">
-        <Card.Header className="d-flex justify-content-between align-items-center">
+      <Card className="shadow mb-4">
+        <Card.Header className="shadow main-text d-flex justify-content-between align-items-center">
           <Card.Title as="h5" className="mb-0">Your Savings Accounts</Card.Title>
           <div>
             <Button variant="outline-primary" size="sm" className="me-2" onClick={openDepositModal}>
@@ -217,12 +218,12 @@ function Savings() {
                   className="d-flex align-items-center justify-content-between p-3 border rounded mb-3"
                 >
                   <div>
-                    <p className="fw-medium mb-1">{account.accountName}</p>
+                    <p className="main-text fw-medium mb-1">{account.accountName}</p>
                     <p className="text-muted small">{account.accountNumber}</p>
                   </div>
                   <div className="text-end">
-                    <p className="fw-bold mb-1">{formatCurrency(account.balance)}</p>
-                    <span className={`badge ${account.status === 'active' ? 'bg-primary' : 'bg-secondary'}`}>
+                    <p className="head-text mb-1">{formatCurrency(account.balance)}</p>
+                    <span className={`badge px-4 py-2 ${account.status === 'active' ? 'bg-dark' : 'bg-secondary'}`}>
                       {account.status}
                     </span>
                   </div>
@@ -232,16 +233,16 @@ function Savings() {
           ) : (
             <div className="d-flex flex-column align-items-center justify-content-center min-h-200px">
               <PiggyBank size={32} className="mb-3" />
-              <h3 className="mb-2">No Savings Accounts</h3>
-              <p className="text-muted mb-0">Create your first savings account to get started.</p>
+              <h3 className="main-text mb-2">No Savings Accounts</h3>
+              <p className="head-text text-muted mb-0">Create your first savings account to get started.</p>
             </div>
           )}
         </Card.Body>
       </Card>
 
       {/* Recent Transactions */}
-      <Card>
-        <Card.Header>
+      <Card className='shadow'>
+        <Card.Header className='main-text shadow'>
           <Card.Title as="h5">Recent Savings Transactions</Card.Title>
         </Card.Header>
         <Card.Body>
@@ -253,12 +254,12 @@ function Savings() {
                     {getTransactionIcon(transaction.transactionType)}
                   </div>
                   <div className="flex-grow-1">
-                    <p className="fw-medium mb-1">{transaction.description}</p>
+                    <p className="main-text fw-medium mb-1">{transaction.description}</p>
                     <p className="text-muted small">
                       {format(new Date(transaction.date), 'MMM dd, yyyy')}
                     </p>
                   </div>
-                  <div className={`fw-bold ${getTransactionColor(transaction.transactionType)}`}>
+                  <div className={`head-text  ${getTransactionColor(transaction.transactionType)}`}>
                     {transaction.transactionType === 'deposit' ? '+' : '-'}
                     {formatCurrency(Math.abs(transaction.amount))}
                   </div>
@@ -276,8 +277,8 @@ function Savings() {
       </Card>
 
       {/* Deposit Modal */}
-      <Modal show={showDepositModal} onHide={() => setShowDepositModal(false)}>
-        <Modal.Header closeButton>
+      <Modal className='main-text' show={showDepositModal} onHide={() => setShowDepositModal(false)}>
+        <Modal.Header className='bg shadow' closeButton>
           <Modal.Title>Add Money to Savings</Modal.Title>
         </Modal.Header>
         <Form onSubmit={handleDeposit}>
@@ -311,15 +312,22 @@ function Savings() {
             
             <Form.Group className="mb-3">
               <Form.Label>Mobile Money Network</Form.Label>
-              <Form.Select 
-                value={network} 
-                onChange={(e) => setNetwork(e.target.value)}
-                required
-              >
-                <option value="MTN">MTN Mobile Money</option>
-                <option value="Airtel">Airtel Money</option>
-                <option value="Africell">Africell Money</option>
-              </Form.Select>
+              <div className="network-options">
+                {[
+                  { name: "MTN", logo: momo },
+                  { name: "Airtel", logo: Airtel },
+                ].map((provider) => (
+                  <div
+                    key={provider.name}
+                    className={`network-option ${
+                      network === provider.name ? "selected" : ""
+                    }`}
+                    onClick={() => setNetwork(provider.name)}
+                  >
+                    <img src={provider.logo} alt={provider.name} />
+                  </div>
+                ))}
+              </div>
             </Form.Group>
             
             <Form.Group className="mb-3">
@@ -345,12 +353,12 @@ function Savings() {
       </Modal>
 
       {/* Withdrawal Modal */}
-      <Modal show={showWithdrawModal} onHide={() => setShowWithdrawModal(false)}>
-        <Modal.Header closeButton>
+      <Modal className='main-text' show={showWithdrawModal} onHide={() => setShowWithdrawModal(false)}>
+        <Modal.Header className='bg shadow main-text' closeButton>
           <Modal.Title>Withdraw Money from Savings</Modal.Title>
         </Modal.Header>
         <Form onSubmit={handleWithdraw}>
-          <Modal.Body>
+          <Modal.Body className='main-text'>
             <Form.Group className="mb-3">
               <Form.Label>Select Account</Form.Label>
               <Form.Select 
@@ -368,7 +376,7 @@ function Savings() {
             </Form.Group>
             
             <Form.Group className="mb-3">
-              <Form.Label>Amount</Form.Label>
+              <Form.Label>Amount (USH)</Form.Label>
               <Form.Control
                 type="number"
                 value={amount}
@@ -380,15 +388,22 @@ function Savings() {
             
             <Form.Group className="mb-3">
               <Form.Label>Mobile Money Network</Form.Label>
-              <Form.Select 
-                value={network} 
-                onChange={(e) => setNetwork(e.target.value)}
-                required
-              >
-                <option value="MTN">MTN Mobile Money</option>
-                <option value="Airtel">Airtel Money</option>
-                <option value="Africell">Africell Money</option>
-              </Form.Select>
+              <div className="network-options">
+                {[
+                  { name: "MTN", logo: momo },
+                  { name: "Airtel", logo: Airtel },
+                ].map((provider) => (
+                  <div
+                    key={provider.name}
+                    className={`network-option ${
+                      network === provider.name ? "selected" : ""
+                    }`}
+                    onClick={() => setNetwork(provider.name)}
+                  >
+                    <img src={provider.logo} alt={provider.name} />
+                  </div>
+                ))}
+              </div>
             </Form.Group>
             
             <Form.Group className="mb-3">
