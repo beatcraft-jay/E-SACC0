@@ -58,8 +58,8 @@ function AppSidebar({ isOpen }) {
       style={{ zIndex: 1000, width: '250px' }}
     >
       <Card className="bg h-100 border-end rounded-0">
-        <Card.Header>
-          <div className="logo-area d-flex align-items-center gap-3">
+        <Card.Header className="bg">
+          <div className="bg logo-area d-flex align-items-center gap-3">
             <div>
               <Image
                 src="../assets/img/LOGO.png"
@@ -74,7 +74,7 @@ function AppSidebar({ isOpen }) {
             </div>
             <div>
               <h1 className="h6 fw-semibold mt-4 mb-0">E-SACCO</h1>
-              <p className="text-muted small">Smart saving</p>
+              <p className="small-text small">Smart saving</p>
             </div>
           </div>
         </Card.Header>
@@ -131,7 +131,7 @@ function AppSidebar({ isOpen }) {
                 />
                 <div className="flex-grow-1">
                   <p className="text-sm mb-0 mt-3 text-truncate">{name}</p>
-                  <p className="text-muted small">Member</p>
+                  <p className="small-text small">Member</p>
                 </div>
               </div>
             </Link>

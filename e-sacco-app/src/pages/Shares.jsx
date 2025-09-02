@@ -153,11 +153,11 @@ function Shares() {
           <div className="d-flex align-items-center justify-content-between mb-3">
             <div>
               <p className="main-text fw-medium mb-1">Total Shares Value</p>
-              <p className="text-muted small">+5.2% annual return</p>
+              <p className=" small">+5.2% annual return</p>
             </div>
             <div className="text-end">
               <p className="head-text mb-1">{formatCurrency(mockSharesData.totalShares)}</p>
-              <p className="text-muted small d-flex align-items-center justify-content-end">
+              <p className="small d-flex align-items-center justify-content-end">
                 {isUp ? (
                   <BsArrowUp className="me-1 text-success" />
                 ) : (
@@ -175,7 +175,7 @@ function Shares() {
               variant="primary"
               className="mb-2"
             />
-            <p className="text-muted small">
+            <p className="small">
               You own {ownershipPercentage}% of the SACCO's total shares.
             </p>
           </div>
@@ -257,7 +257,7 @@ function Shares() {
                   </div>
                   <div className="flex-grow-1">
                     <p className="main-text fw-medium mb-1">{transaction.description}</p>
-                    <p className="text-muted small">
+                    <p className="small">
                       {format(new Date(transaction.date), 'MMM dd, yyyy')}
                     </p>
                   </div>
@@ -272,7 +272,7 @@ function Shares() {
             <div className="main-text d-flex flex-column align-items-center justify-content-center min-h-200px">
               <BsArrowUpRight size={32} className="mb-3" />
               <h3 className="mb-2">No Share Transactions</h3>
-              <p className="text-muted mb-0">Your share transactions will appear here.</p>
+              <p className="mb-0">Your share transactions will appear here.</p>
             </div>
           )}
         </Card.Body>

@@ -200,7 +200,7 @@ function Forum() {
                   action
                   active={selectedConversation?.id === conv.id && selectedConversation?.type === type}
                   onClick={() => setSelectedConversation({ ...conv, type })}
-                  className="d-flex align-items-center gap-2 px-3 py-2"
+                  className="d-flex accordion align-items-center gap-2 px-3 py-2"
                 >
                   {type === 'individual' && (
                     <img

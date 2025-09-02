@@ -156,7 +156,7 @@ function Transactions() {
                     </div>
                     <div className="flex-grow-1">
                       <p className="main-text fw-medium mb-1">{transaction.description}</p>
-                      <p className="small-text text-muted small">
+                      <p className="small-text small">
                         {format(transaction.date, 'MMM dd, yyyy')}
                       </p>
                     </div>

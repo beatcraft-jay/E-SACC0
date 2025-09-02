@@ -19,7 +19,7 @@ function Header({ onToggleSidebar }) {
   const dashboardData = isAuthenticated ? mockDashboardData : null;
 
   return (
-    <Navbar bg="white" className="border-bottom px-4 py-3" sticky="top">
+    <Navbar className="border-bottom px-4 py-3" sticky="top">
       <div className="main-text d-flex align-items-center gap-3 w-100">
         <div className="d-flex align-items-center gap-3">
           <Button

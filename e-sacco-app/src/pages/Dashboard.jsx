@@ -258,7 +258,7 @@ function Dashboard() {
         {/* Welcome Section */}
         <div className="mb-4">
           <h1 className="display-6">Welcome back, {dashboardUser.firstName}!</h1>
-          <p className="main-text text-muted">
+          <p className="main-text small">
             Member #{dashboardUser.memberNumber} • Last login: {format(new Date(), 'PPp')}
           </p>
         </div>
@@ -273,7 +273,7 @@ function Dashboard() {
               </Card.Header>
               <Card.Body>
                 <div className="small-text h3 text-success">{formatCurrency(totalSavings)}</div>
-                <p className="small-text text-muted small">+2.5% from last month</p>
+                <p className="small-text small">+2.5% from last month</p>
               </Card.Body>
             </Card>
           </div>
@@ -285,7 +285,7 @@ function Dashboard() {
               </Card.Header>
               <Card.Body>
                 <div className="head-text h3 text-warning">{formatCurrency(totalLoanBalance)}</div>
-                <p className="small-text text-muted small">
+                <p className="small-text small">
                   {activeLoans.length} active loan{activeLoans.length !== 1 ? 's' : ''}
                 </p>
               </Card.Body>
@@ -299,7 +299,7 @@ function Dashboard() {
               </Card.Header>
               <Card.Body>
                 <div className="head-text h3 text-primary">{formatCurrency(totalShares)}</div>
-                <p className="small-text text-muted small">+5.2% annual return</p>
+                <p className="small-text small">+5.2% annual return</p>
               </Card.Body>
             </Card>
           </div>
@@ -313,7 +313,7 @@ function Dashboard() {
                 <div className="head-text h3 text-purple">
                   {formatCurrency(totalSavings + totalShares - totalLoanBalance)}
                 </div>
-                <p className="small-text text-muted small">Total assets</p>
+                <p className="small-text small">Total assets</p>
               </Card.Body>
             </Card>
           </div>
@@ -326,7 +326,7 @@ function Dashboard() {
             <Card className='shadow'>
               <Card.Header className="main-text shadow d-flex align-items-center justify-content-between">
                 <Card.Title as="h5">Savings Accounts</Card.Title>
-                <Button variant="outline-dark" size="sm">
+                <Button variant="outline-primary" size="sm" href='/savings'>
                   <BsPlus className="me-2" size={16} />
                   New Account
                 </Button>
@@ -340,7 +340,7 @@ function Dashboard() {
                     >
                       <div>
                         <p className="main-text fw-medium mb-1">{account.accountName}</p>
-                        <p className="small-text text-muted small">{account.accountNumber}</p>
+                        <p className="small-text small">{account.accountNumber}</p>
                       </div>
                       <div className="text-end">
                         <p className="main-text mb-1">{formatCurrency(account.balance)}</p>
@@ -364,7 +364,7 @@ function Dashboard() {
                         </EmptyStateDescription>
                       </EmptyStateContent>
                       <EmptyStateAction>
-                        <Button size="sm">Create Account</Button>
+                        <Button size="sm" href='/savings'>Create Account</Button>
                       </EmptyStateAction>
                     </EmptyState>
                   )}
@@ -378,7 +378,7 @@ function Dashboard() {
             <Card className='shadow'>
               <Card.Header className="main-text shadow d-flex align-items-center justify-content-between">
                 <Card.Title as="h5">Recent Transactions</Card.Title>
-                <Button variant="outline-dark" size="sm">
+                <Button variant="outline-primary" size="sm" href='/transactions'>
                   <BsEye className="me-2" size={16} />
                   View All
                 </Button>
@@ -392,7 +392,7 @@ function Dashboard() {
                       </div>
                       <div className="flex-grow-1">
                         <p className="fw-medium mb-1">{transaction.description}</p>
-                        <p className="small-text text-muted small">
+                        <p className="small-text small">
                           {format(transaction._creationTime, 'MMM dd, yyyy')}
                         </p>
                       </div>

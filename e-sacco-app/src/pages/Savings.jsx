@@ -219,7 +219,7 @@ function Savings() {
                 >
                   <div>
                     <p className="main-text fw-medium mb-1">{account.accountName}</p>
-                    <p className="text-muted small">{account.accountNumber}</p>
+                    <p className="small">{account.accountNumber}</p>
                   </div>
                   <div className="text-end">
                     <p className="head-text mb-1">{formatCurrency(account.balance)}</p>
@@ -234,7 +234,7 @@ function Savings() {
             <div className="d-flex flex-column align-items-center justify-content-center min-h-200px">
               <PiggyBank size={32} className="mb-3" />
               <h3 className="main-text mb-2">No Savings Accounts</h3>
-              <p className="head-text text-muted mb-0">Create your first savings account to get started.</p>
+              <p className="head-text mb-0">Create your first savings account to get started.</p>
             </div>
           )}
         </Card.Body>
@@ -255,7 +255,7 @@ function Savings() {
                   </div>
                   <div className="flex-grow-1">
                     <p className="main-text fw-medium mb-1">{transaction.description}</p>
-                    <p className="text-muted small">
+                    <p className="small">
                       {format(new Date(transaction.date), 'MMM dd, yyyy')}
                     </p>
                   </div>
@@ -270,7 +270,7 @@ function Savings() {
             <div className="d-flex flex-column align-items-center justify-content-center min-h-200px">
               <PiggyBank size={32} className="mb-3" />
               <h3 className="mb-2">No Transactions</h3>
-              <p className="text-muted mb-0">Your savings transactions will appear here.</p>
+              <p className=" mb-0">Your savings transactions will appear here.</p>
             </div>
           )}
         </Card.Body>

@@ -107,13 +107,13 @@ function Notifications() {
                     className="d-flex align-items-center gap-3 mb-3 p-2 border-bottom"
                   >
                     <div className="d-flex align-items-center justify-content-center rounded-circle bg-light p-2">
-                      <BsBell size={16} className={notification.read ? 'text-muted' : 'text-primary'} />
+                      <BsBell size={16} className={notification.read ? 'small-text' : 'text-primary'} />
                     </div>
                     <div className="flex-grow-1">
-                      <p className={`fw-medium mb-1 ${notification.read ? 'text-muted' : ''}`}>
+                      <p className={`fw-medium mb-1 ${notification.read ? 'small-text' : ''}`}>
                         {notification.message}
                       </p>
-                      <p className="text-muted small">
+                      <p className="small">
                         {format(notification.date, 'MMM dd, yyyy HH:mm')}
                       </p>
                     </div>
@@ -133,7 +133,7 @@ function Notifications() {
               <div className="d-flex flex-column align-items-center justify-content-center min-h-200px">
                 <BsBell size={32} className="mb-3" />
                 <h3 className="mb-2">No Notifications</h3>
-                <p className="text-muted mb-0">You have no notifications at this time.</p>
+                <p className="mb-0">You have no notifications at this time.</p>
               </div>
             )}
           </Card.Body>

@@ -6,23 +6,147 @@
   box-sizing: border-box;
 }
 
-:root{
-  --background-color: #f6f6f6;
-  --foreground-color: #A64D79;
-  --prmary-text-color: #0a0a0a;
-  --secondary-text-color: #ffffff;
-  --toggle-bg: #1A1A1D;
-  --toggle-fg: #3B1C32;
+/* ==============================
+   THEME VARIABLES
+============================== */
+:root {
+  --background-color: #ffffff;
+  --foreground-color: #f8f9fa;
+  --primary-text-color: #212529;
+  --secondary-text-color: #495057;
+  --accent-color: purple;
+  --border-color: #dee2e6;
 }
 
 [data-theme="dark"] {
-  --background-color: #1A1A1D;
-  --foreground-color: #3B1C32;
-  --prmary-text-color: #e1d2f2;
-  --secondary-text-color: #A64D79;
-  --toggle-bg: #e1d2f2;
-  --toggle-fg: #A64D79;
+  --background-color: #121212;
+  --foreground-color: #1e1e1e;
+  --primary-text-color: #f8f9fa;
+  --secondary-text-color: #ced4da;
+  --accent-color: #b57edc; /* softer purple for dark mode */
+  --border-color: rgb(65, 64, 64);
 }
+
+/* ==============================
+   GLOBAL
+============================== */
+body {
+  background-color: var(--background-color) !important;
+  color: var(--primary-text-color) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a, .nav-link {
+  color: var(--primary-text-color) !important;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover, .nav-link:hover {
+  color: var(--accent-color) !important;
+}
+
+/* ==============================
+   NAVBAR / HEADER
+============================== */
+.navbar {
+  background-color: var(--foreground-color) !important;
+  color: var(--primary-text-color) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar .btn,
+.navbar .form-control {
+  background-color: var(--foreground-color) !important;
+  color: var(--primary-text-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.navbar .btn:hover,
+.navbar .form-control:focus {
+  border-color: var(--accent-color) !important;
+  box-shadow: none !important;
+}
+
+/* ==============================
+   CARDS / ACCORDIONS / MODALS
+============================== */
+.card, .accordion, .modal-content {
+  background-color: var(--foreground-color) !important;
+  color: var(--primary-text-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.card-header, .accordion-button {
+  background-color: var(--foreground-color) !important;
+  color: var(--secondary-text-color) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* ==============================
+   FORMS
+============================== */
+.form-control, .form-select {
+  background-color: var(--foreground-color) !important;
+  color: var(--primary-text-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--accent-color) !important;
+  background-color: var(--foreground-color) !important;
+  color: var(--primary-text-color) !important;
+  box-shadow: none !important;
+}
+
+.form-control::placeholder {
+  color: var(--secondary-text-color) !important;
+}
+
+/* ==============================
+   BUTTONS
+============================== */
+.btn-primary {
+  background-color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover {
+  background-color: #6a0dad !important; /* deeper purple */
+  border-color: #6a0dad !important;
+}
+
+.btn-outline-primary {
+  color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+}
+
+/* ==============================
+   NAV ACTIVE
+============================== */
+.nav-clicked {
+  background-color: rgba(128, 0, 128, 0.15) !important; /* semi-transparent purple */
+  color: var(--accent-color) !important;
+  border-radius: 8px;
+}
+
+/* ==============================
+   TOAST
+============================== */
+.toast {
+  background-color: var(--foreground-color) !important;
+  color: var(--primary-text-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+
 
 .nav-height{
   height: 100vh;
@@ -256,7 +380,6 @@
   max-height: 400px;
   overflow-y: auto;
   background-color: #f8f9fa;
-  border-radius: 10px;
 }
 .nav-btn-bg:hover {
   background-color: #f8f9fa;
@@ -307,4 +430,52 @@
 .unread-badge {
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
+}
+
+.profile-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .profile-image {
+  object-fit: cover;
+ }
+ 
+ .bg-success {
+  background-color: var(--toast-bg-success) !important;
+ }
+ 
+ .bg-danger {
+  background-color: var(--toast-bg-danger) !important;
+ }
+
+ /* Social media icon hover effect */
+.social-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; 
+  height: 32px;
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.2); 
+}
+
+.social-icon::before {
+  content: '';
+  position: absolute;
+  width: 58px; 
+  height: 58px;
+  background-color: var(--link-color);
+  opacity: 0;
+  border-radius: 50%;
+  transition: opacity 0.3s ease;
+  z-index: -1; 
+}
+
+.social-icon:hover::before {
+  opacity: 0.2; 
 }

@@ -292,7 +292,7 @@ function Loans() {
                   >
                     <div>
                       <p className="main-text fw-medium mb-1">{loan.purpose}</p>
-                      <p className="text-muted small">Due: {loan.repaymentDue}</p>
+                      <p className="small">Due: {loan.repaymentDue}</p>
                     </div>
                     <div className="text-end">
                       <p className="head-text mb-1">{formatCurrency(loan.amount)}</p>
@@ -311,7 +311,7 @@ function Loans() {
               <div className="main-text d-flex flex-column align-items-center justify-content-center min-h-200px">
                 <BsCreditCard size={32} className="mb-3" />
                 <h3 className="mb-2">No Active Loans</h3>
-                <p className="text-muted mb-0">Apply for a loan to get started.</p>
+                <p className=" mb-0">Apply for a loan to get started.</p>
               </div>
             )}
           </Card.Body>
@@ -332,7 +332,7 @@ function Loans() {
                     </div>
                     <div className="flex-grow-1">
                       <p className="main-text fw-medium mb-1">{transaction.description}</p>
-                      <p className="text-muted small">
+                      <p className="small">
                         {format(new Date(transaction.date), 'MMM dd, yyyy')}
                       </p>
                     </div>
@@ -347,7 +347,7 @@ function Loans() {
               <div className="main-text d-flex flex-column align-items-center justify-content-center min-h-200px">
                 <BsCreditCard size={32} className="mb-3" />
                 <h3 className="mb-2">No Transactions</h3>
-                <p className="text-muted mb-0">Your loan transactions will appear here.</p>
+                <p className="mb-0">Your loan transactions will appear here.</p>
               </div>
             )}
           </Card.Body>
