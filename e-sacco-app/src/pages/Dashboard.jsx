@@ -9,9 +9,9 @@ import {
   BsPlus,
   BsEye,
   BsPerson,
-} from 'react-icons/bs'; // Use react-icons/bs
+} from 'react-icons/bs'; 
 import { Button, Card, Placeholder } from 'react-bootstrap';
-import AppLayout from '../components/AppLayout.jsx'; // Use real AppLayout
+import { Link } from 'react-router-dom';
 
 // Mock useAuth hook
 function useAuth() {
@@ -326,7 +326,7 @@ function Dashboard() {
             <Card className='shadow'>
               <Card.Header className="main-text shadow d-flex align-items-center justify-content-between">
                 <Card.Title as="h5">Savings Accounts</Card.Title>
-                <Button variant="outline-primary" size="sm" href='/savings'>
+                <Button variant="outline-primary" size="sm" as={Link} to="/savings">
                   <BsPlus className="me-2" size={16} />
                   New Account
                 </Button>
@@ -364,7 +364,7 @@ function Dashboard() {
                         </EmptyStateDescription>
                       </EmptyStateContent>
                       <EmptyStateAction>
-                        <Button size="sm" href='/savings'>Create Account</Button>
+                        <Button size="sm"  as={Link} to="/savings">Create Account</Button>
                       </EmptyStateAction>
                     </EmptyState>
                   )}
@@ -378,7 +378,7 @@ function Dashboard() {
             <Card className='shadow'>
               <Card.Header className="main-text shadow d-flex align-items-center justify-content-between">
                 <Card.Title as="h5">Recent Transactions</Card.Title>
-                <Button variant="outline-primary" size="sm" href='/transactions'>
+                <Button variant="outline-primary" size="sm"  as={Link} to="/transactions">
                   <BsEye className="me-2" size={16} />
                   View All
                 </Button>

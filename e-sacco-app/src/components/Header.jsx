@@ -1,6 +1,6 @@
 import { Navbar, Form, FormControl, Button, Badge } from 'react-bootstrap';
-import { BsBell, BsSearch } from 'react-icons/bs'; // Use react-icons/bs
-import { Link } from 'react-router-dom'; // Add missing import
+import { BsBell, BsSearch } from 'react-icons/bs'; 
+import { Link } from 'react-router-dom'; 
 
 // Mock useUser hook
 function useUser() {
