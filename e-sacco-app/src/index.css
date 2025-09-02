@@ -16,6 +16,7 @@
   --secondary-text-color: #495057;
   --accent-color: purple;
   --border-color: #dee2e6;
+  --background-image: url('./img/cool-background.png');
 }
 
 [data-theme="dark"] {
@@ -23,8 +24,9 @@
   --foreground-color: #1e1e1e;
   --primary-text-color: #f8f9fa;
   --secondary-text-color: #ced4da;
-  --accent-color: #b57edc; /* softer purple for dark mode */
+  --accent-color: #b57edc; 
   --border-color: rgb(65, 64, 64);
+  --background-image: url('./assets/img/cool-background-dark.png');
 }
 
 /* ==============================
@@ -154,8 +156,12 @@ a:hover, .nav-link:hover {
 }
 
 .nav-btn-bg {
-  color: #000 !important; 
-  transition: all 0.3s ease-in-out !important; 
+  color: var(--primary-text-color) !important; /* Changed from #000 */
+  transition: all 0.3s ease-in-out !important;
+}
+
+.nav-btn-bg:hover {
+  color: var(--accent-color) !important; /* Changed from #791d7c */
 }
 
 .nav-btn-bg:hover {
@@ -200,7 +206,8 @@ a:hover, .nav-link:hover {
 
 .bg{
   background-repeat: repeat;
-  background-image: url(./img/cool-background.png);
+  background-image: var(--background-image);
+  transition: background-image 0.3s ease;
 }
 
 .logo{
@@ -211,9 +218,10 @@ a:hover, .nav-link:hover {
   color: #BE598F;
 }
 
-.main-text{
+.main-text {
   font-family: "Nunito", sans-serif;
   font-weight: 300;
+  color: var(--primary-text-color) !important; /* Add this line */
 }
 
 .head-text{
@@ -221,11 +229,12 @@ a:hover, .nav-link:hover {
   font-weight: 400;
 }
 
-.small-text{
+.small-text {
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
   font-weight: 200;
   font-style: normal;
+  color: var(--secondary-text-color) !important; /* Add this line */
 }
 
 .password-toggle-icon{

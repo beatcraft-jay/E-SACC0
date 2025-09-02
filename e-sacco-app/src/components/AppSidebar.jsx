@@ -81,7 +81,7 @@ function AppSidebar({ isOpen }) {
         <Card.Body className="p-0">
           <Nav className="flex-column">
             <div className="px-4 py-2">
-              <h6 className="fw-semibold text-muted">Banking Services</h6>
+              <h6 className="fw-semibold small-text">Banking Services</h6>
               {mainNavigation.map((item) => (
                 <Nav.Link
                   as={Link}
@@ -97,13 +97,13 @@ function AppSidebar({ isOpen }) {
               ))}
             </div>
             <div className="px-4 py-2">
-              <h6 className="text-muted fw-semibold">Account</h6>
+              <h6 className="small-text fw-semibold">Account</h6>
               {secondaryNavigation.map((item) => (
                 <Nav.Link
                   as={Link}
                   to={item.url}
                   key={item.title}
-                  className={`nav-btn-bg d-flex align-items-center gap-2 py-2 px-3 rounded ${
+                  className={`main-text nav-btn-bg d-flex align-items-center gap-2 py-2 px-3 rounded ${
                     location.pathname === item.url ? 'bg-primary text-white' : ''
                   }`}
                 >
