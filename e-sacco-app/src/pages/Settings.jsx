@@ -1,8 +1,8 @@
-// src/pages/Settings.jsx
 import { useState, useEffect, useRef } from "react";
 import { Accordion, Button, Card, Form, Toast, ToastContainer } from "react-bootstrap";
 import { BsGear, BsPerson, BsEnvelope, BsPhone, BsHouse, BsLock, BsGlobe, BsCreditCard, BsUniversalAccess, BsQuestionCircle, BsShare, BsArrowClockwise, BsInfoCircle, BsMoon, BsSun } from "react-icons/bs";
 import img1 from "../assets/img/img1.jpeg";
+import Footer from "../components/Footer";
 import { useTheme } from "../context/ThemeContext";
 
 // Mock useAuth hook
@@ -22,7 +22,7 @@ function useAuth() {
 
 function Settings() {
   const { isAuthenticated, updateProfile, updatePreferences } = useAuth();
-  const { theme, setTheme } = useTheme(); // Move useTheme to top level
+  const { theme, setTheme } = useTheme(); 
   const [profile, setProfile] = useState({
     firstName: "John",
     lastName: "Doe",
@@ -53,7 +53,7 @@ function Settings() {
     screenReader: false,
     twoFactorAuth: false,
     autoUpdates: true,
-    theme: theme, // Initialize with ThemeContext theme
+    theme: theme,
   });
   const [password, setPassword] = useState({ current: "", new: "", confirm: "" });
   const [inviteEmail, setInviteEmail] = useState("");
@@ -617,6 +617,7 @@ function Settings() {
                       type="password"
                       value={password.current}
                       onChange={(e) => setPassword({ ...password, current: e.target.value })}
+                      autoComplete="current-password"
                       aria-describedby="currentError"
                     />
                     <Form.Control.Feedback type="invalid" id="currentError">
@@ -630,6 +631,7 @@ function Settings() {
                       value={password.new}
                       onChange={(e) => setPassword({ ...password, new: e.target.value })}
                       isInvalid={!!errors.new}
+                      autoComplete="new-password"
                       aria-describedby="newError"
                     />
                     <Form.Control.Feedback type="invalid" id="newError">
@@ -643,6 +645,7 @@ function Settings() {
                       value={password.confirm}
                       onChange={(e) => setPassword({ ...password, confirm: e.target.value })}
                       isInvalid={!!errors.confirm}
+                      autoComplete="new-password"
                       aria-describedby="confirmError"
                     />
                     <Form.Control.Feedback type="invalid" id="confirmError">
@@ -783,6 +786,7 @@ function Settings() {
           <Toast.Body className="text-white">{showToast.message}</Toast.Body>
         </Toast>
       </ToastContainer>
+      <Footer/>
     </div>
   );
 }

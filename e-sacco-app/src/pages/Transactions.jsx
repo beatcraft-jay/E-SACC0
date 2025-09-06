@@ -3,6 +3,7 @@ import { Button, Card, Form } from 'react-bootstrap';
 import { Wallet, ArrowUpRight, ArrowDownLeft, CreditCard, GraphUp } from 'react-bootstrap-icons'; // Replaced TrendingUp with GraphUp
 import { format } from 'date-fns';
 import AppLayout from '../components/AppLayout.jsx';
+import Footer from '../components/Footer.jsx';
 
 // Format currency for Ugandan Shillings
 function formatCurrency(amount) {
@@ -30,7 +31,7 @@ function getTransactionIcon(type) {
       return <ArrowDownLeft className="h-4 w-4 text-warning" />;
     case 'share_purchase':
     case 'dividend':
-      return <GraphUp className="h-4 w-4 text-primary" />; // Replaced TrendingUp
+      return <GraphUp className="h-4 w-4 text-primary" />;
     default:
       return <Wallet className="h-4 w-4" />;
   }
@@ -59,7 +60,7 @@ function getTransactionColor(type) {
 
 function Transactions() {
   // Mock user authentication
-  const isAuthenticated = true; // Change to false to test unauthenticated state
+  const isAuthenticated = true; 
 
   // Mock transaction data
   const mockTransactions = [
@@ -176,6 +177,7 @@ function Transactions() {
             )}
           </Card.Body>
         </Card>
+        <Footer/>
       </div>
   );
 }

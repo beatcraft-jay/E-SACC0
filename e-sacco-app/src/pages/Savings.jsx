@@ -4,6 +4,7 @@ import { PiggyBank, ArrowUpRight, ArrowDownLeft, Phone, Building } from 'react-b
 import { format } from 'date-fns';
 import Airtel from "../assets/img/airtelMoney.jpeg"
 import momo from "../assets/img/momo.png"
+import Footer from '../components/Footer';
 
 // Format currency for Ugandan Shillings
 function formatCurrency(amount) {
@@ -427,6 +428,7 @@ function Savings() {
           </Modal.Footer>
         </Form>
       </Modal>
+      <Footer/>
     </div>
   );
 }

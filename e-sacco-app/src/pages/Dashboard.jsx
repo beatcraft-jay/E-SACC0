@@ -12,11 +12,12 @@ import {
 } from 'react-icons/bs'; 
 import { Button, Card, Placeholder } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer.jsx';
 
 // Mock useAuth hook
 function useAuth() {
   return {
-    isAuthenticated: true, // Change to false to test unauthenticated state
+    isAuthenticated: true,
   };
 }
 
@@ -422,7 +423,10 @@ function Dashboard() {
             </Card>
           </div>
         </div>
+        
+        <Footer/>
       </div>
+      
   );
 }
 

@@ -17,6 +17,9 @@
   --accent-color: purple;
   --border-color: #dee2e6;
   --background-image: url('./img/cool-background.png');
+  --toast-bg-success: #198754; 
+  --toast-bg-danger: #dc3545; 
+  --link-color: #6f42c1;       
 }
 
 [data-theme="dark"] {
@@ -27,6 +30,9 @@
   --accent-color: #b57edc; 
   --border-color: rgb(65, 64, 64);
   --background-image: url('./assets/img/cool-background-dark.png');
+  --toast-bg-success: #198754;
+  --toast-bg-danger: #dc3545;
+  --link-color: #b57edc;
 }
 
 /* ==============================
@@ -148,8 +154,6 @@ a:hover, .nav-link:hover {
   border: 1px solid var(--border-color) !important;
 }
 
-
-
 .nav-height{
   height: 100vh;
   position: sticky;
@@ -164,13 +168,9 @@ a:hover, .nav-link:hover {
   color: var(--accent-color) !important; 
 }
 
-.nav-btn-bg:hover {
-  color: #791d7c !important;
-}
-
 .nav-clicked {
   background-color: rgba(128, 0, 128, 0.1) !important; 
-  color: #791d7c !important;
+  color: var(--accent-color) !important;
 }
 
 .logo-area {
@@ -190,7 +190,6 @@ a:hover, .nav-link:hover {
 .transparent-input::placeholder {
   color: rgba(255, 255, 255, 0.6); 
 }
-
 
 .box-area{
   width: 930px;
@@ -221,7 +220,7 @@ a:hover, .nav-link:hover {
 .main-text {
   font-family: "Nunito", sans-serif;
   font-weight: 300;
-  color: var(--primary-text-color) !important; /* Add this line */
+  color: var(--primary-text-color) !important;
 }
 
 .head-text{
@@ -256,6 +255,96 @@ a:hover, .nav-link:hover {
   color: #213547 !important;
 }
 
+/* ==============================
+   SIDEBAR MOBILE 
+============================== */
+.sidebar {
+  transition: transform 0.3s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 1000;
+  transform: translateX(-100%);
+}
+
+.sidebar.d-block {
+  transform: translateX(0);
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile backdrop */
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+.sidebar-backdrop.show {
+  display: block;
+}
+
+/* Main content adjustment */
+.main-content {
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+  width: 100%;
+}
+
+/* Desktop styles */
+@media (min-width: 992px) {
+  .sidebar {
+    transform: translateX(0);
+    position: relative;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+  }
+  
+  .sidebar-backdrop {
+    display: none !important;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 992px) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    transform: none !important;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 991.98px) {
+  .sidebar:not(.d-block) {
+    transform: translateX(-100%);
+  }
+}
+
+/* Improve touch targets for mobile */
+.nav-link {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+/* ==============================
+   RESPONSIVE BREAKPOINTS
+============================== */
 @media (max-width: 760px) {
   .box-area{
     margin: 0px;
@@ -274,7 +363,6 @@ a:hover, .nav-link:hover {
   .bg{
     background-image: var(--background-image);
     width: 370px;
-    
   }
 
   .logo{
@@ -301,7 +389,6 @@ a:hover, .nav-link:hover {
   .bg{
     background-image: var(--background-image);
     width: 370px;
-    
   }
 
   .logo{
@@ -309,27 +396,11 @@ a:hover, .nav-link:hover {
   }
 }
 
-.sidebar {
-  transition: transform 0.3s ease;
-}
-
-.main-content {
-  margin-left: 250px;
-  transition: margin-left 0.3s ease;
-}
-
-@media (max-width: 991.98px) {
-  .main-content {
-    margin-left: 0;
-  }
-  
-  .sidebar:not(.d-block) {
-    transform: translateX(-100%);
-  }
-}
+/* ==============================
+   REMAINING STYLES
+============================== */
 
 /*savings and withdral modal*/
-
 .network-options {
   display: flex;
   gap: 1rem;
@@ -367,22 +438,6 @@ a:hover, .nav-link:hover {
 }
 .text-purple {
   color: #6b7280;
-}
-.sidebar {
-  transition: transform 0.3s ease-in-out;
-}
-@media (max-width: 991px) {
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    z-index: 1000;
-    transform: translateX(-100%);
-  }
-  .sidebar.d-block {
-    transform: translateX(0);
-  }
 }
 
 .chat-area {

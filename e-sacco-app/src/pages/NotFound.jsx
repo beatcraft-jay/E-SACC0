@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { ExclamationTriangle } from 'react-bootstrap-icons';
+import Footer from '../components/Footer.jsx';
 
 function AppLayout({ children }) {
   return <div className="container py-4">{children}</div>;
@@ -17,6 +18,7 @@ function NotFound() {
         <Button as={Link} to="/dashboard" variant="primary" size="lg" className="px-4">
           Return to Home
         </Button>
+        <Footer/>
       </div>
   );
 }

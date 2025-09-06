@@ -6,6 +6,7 @@ import AppLayout from '../components/AppLayout.jsx';
 import jane from '../assets/img/jane.jpeg';
 import mike from '../assets/img/mike.jpeg';
 import { BsBell, BsSearch } from 'react-icons/bs'; 
+import Footer from '../components/Footer.jsx';
 
 // Mock useAuth hook
 function useAuth() {
@@ -19,7 +20,7 @@ function useAuth() {
 const mockUsers = [
   { id: '2', name: 'Jane Smith', avatar: jane },
   { id: '3', name: 'Mike Johnson', avatar: mike },
-  { id: '4', name: 'Alice Brown', avatar: mike }, // Reuse avatar for example
+  { id: '4', name: 'Alice Brown', avatar: mike }, 
 ];
 
 // Mock conversation data
@@ -587,6 +588,9 @@ function Forum() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      
+      <Footer/>
     </div>
   );
 }

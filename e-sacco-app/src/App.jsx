@@ -1,5 +1,5 @@
+// src/App.jsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
 import Index from './pages/Index.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Loans from './pages/Loans.jsx';
@@ -11,53 +11,89 @@ import Support from './pages/Support.jsx';
 import Transactions from './pages/Transactions.jsx';
 import SignIn from './pages/SignIn.jsx';
 import Login from './pages/Login.jsx';
-import Header from './components/Header.jsx';
-import AppSidebar from './components/AppSidebar.jsx';
 import Notifications from './pages/Notifications.jsx';
 import Settings from './pages/Settings.jsx';
 import Forum from './pages/Forum.jsx';
 import Faqs from './pages/Faqs.jsx';
 import { NotificationProvider } from './context/NotificationContext.jsx';
-import { ThemeProvider } from "./context/ThemeContext.jsx";
+import { ThemeProvider } from './context/ThemeContext.jsx';
+import AppLayout from './components/AppLayout.jsx';
+import Footer from './components/Footer.jsx';
 
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
   return (
     <ThemeProvider>
-    <NotificationProvider>
-    <BrowserRouter>
-      <div className="d-flex">
-        <AppSidebar isOpen={sidebarOpen} />
-        <div className="main-content flex-grow-1">
-          <Header onToggleSidebar={toggleSidebar} />
-          <main className="container py-4">
+      <NotificationProvider>
+        <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/loans" element={<Loans />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/savings" element={<Savings />} />
-            <Route path="/shares" element={<Shares />} />
-            <Route path="/support" element={<Support />} />
-            <Route path="/transactions" element={<Transactions />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/forum" element={<Forum />} />
-            <Route path="/faqs" element={<Faqs />} />
-            <Route path="*" element={<NotFound />} />
+            <Route
+              path="/"
+              element={
+                <div className="min-vh-100" style={{ position: 'relative' }}>
+                  <Index />
+                  <Footer />
+                </div>
+              }
+            />
+            <Route
+              path="/signin"
+              element={<SignIn />}
+            />
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+            <Route
+              path="/dashboard"
+              element={<AppLayout><Dashboard /></AppLayout>}
+            />
+            <Route
+              path="/loans"
+              element={<AppLayout><Loans /></AppLayout>}
+            />
+            <Route
+              path="/profile"
+              element={<AppLayout><Profile /></AppLayout>}
+            />
+            <Route
+              path="/savings"
+              element={<AppLayout><Savings /></AppLayout>}
+            />
+            <Route
+              path="/shares"
+              element={<AppLayout><Shares /></AppLayout>}
+            />
+            <Route
+              path="/support"
+              element={<AppLayout><Support /></AppLayout>}
+            />
+            <Route
+              path="/transactions"
+              element={<AppLayout><Transactions /></AppLayout>}
+            />
+            <Route
+              path="/notifications"
+              element={<AppLayout><Notifications /></AppLayout>}
+            />
+            <Route
+              path="/settings"
+              element={<AppLayout><Settings /></AppLayout>}
+            />
+            <Route
+              path="/forum"
+              element={<AppLayout><Forum /></AppLayout>}
+            />
+            <Route
+              path="/faqs"
+              element={<AppLayout><Faqs /></AppLayout>}
+            />
+            <Route
+              path="*"
+              element={<AppLayout><NotFound /></AppLayout>}
+            />
           </Routes>
-          </main>
-        </div>
-      </div>
-    </BrowserRouter>
-    </NotificationProvider>
+        </BrowserRouter>
+      </NotificationProvider>
     </ThemeProvider>
   );
 }

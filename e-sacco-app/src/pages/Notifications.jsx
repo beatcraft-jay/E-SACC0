@@ -3,11 +3,12 @@ import { Button, Card, Form, Badge } from 'react-bootstrap';
 import { BsBell, BsPerson } from 'react-icons/bs';
 import { format } from 'date-fns';
 import AppLayout from '../components/AppLayout.jsx';
+import Footer from '../components/Footer.jsx';
 
 // Mock useAuth hook
 function useAuth() {
   return {
-    isAuthenticated: true, // Change to false to test unauthenticated state
+    isAuthenticated: true, 
   };
 }
 
@@ -138,6 +139,7 @@ function Notifications() {
             )}
           </Card.Body>
         </Card>
+        <Footer/>
       </div>
   );
 }

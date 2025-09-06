@@ -30,7 +30,7 @@ const Login = () => {
     <div className="App" class="container d-flex align-items-center justify-content-center min-vh-100" data-theme={theme}>
         <div class='row border rounded-3 bg-white shadow box-area'>
             <div class=" rounded-4 left-box" className='bg'>
-                <div class=" d-flex align-items-center justify-content-center flex-column">
+                <div class="bg d-flex align-items-center justify-content-center flex-column">
                     <div class="featured-image mb-3 logo">
                         <img src="assets/img/LOGO.png" class="img-fluid" alt=""/>
                     </div>
@@ -40,7 +40,7 @@ const Login = () => {
             </div>
             
             
-            <div class="col-md-6 right-box">
+            <div class="bg col-md-6 right-box">
                 <div class="row align-items-center">
 
                     <div class="position-relative" onClick={darkLight}>

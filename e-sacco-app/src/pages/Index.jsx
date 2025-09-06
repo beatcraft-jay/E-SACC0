@@ -1,16 +1,10 @@
-import { useEffect } from 'react';
+// src/pages/Index.jsx
+import { Button, Card, Form } from 'react-bootstrap';
+import { BsBank, BsShieldCheck, BsPhone, BsGraphUp, BsSun, BsMoon } from 'react-icons/bs';
+import { useTheme } from '../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card } from 'react-bootstrap';
-import { BsBank, BsShieldCheck, BsPhone, BsGraphUp } from 'react-icons/bs';
 
-// Mock useAuth hook
-function useAuth() {
-  return {
-    isAuthenticated: false, // Change to true to test authenticated redirect
-  };
-}
-
-// SignInButton component with navigation to /signin
+// SignInButton component
 function SignInButton({
   children,
   variant = 'primary',
@@ -58,20 +52,21 @@ const features = [
 ];
 
 export default function Index() {
-  const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
+  const { theme, setTheme } = useTheme();
 
-  useEffect(() => {
-    // Redirect authenticated users to dashboard
-    if (isAuthenticated) {
-      navigate('/dashboard');
-    }
-  }, [isAuthenticated, navigate]);
+  const handleThemeToggle = (e) => {
+    const newTheme = e.target.checked ? 'dark' : 'light';
+    console.log('Index toggle: setting theme to', newTheme);
+    setTheme(newTheme);
+  };
 
   return (
-    <div className="min-vh-100">
+    <div className={`min-vh-100 main-text ${theme}`}>
       {/* Header */}
-      <header className="bg-white border-bottom py-3 sticky-top">
+      <header
+        className="border-bottom py-3 sticky-top"
+        style={{ background: 'var(--foreground-color)', opacity: 1 }}
+      >
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center gap-3">
@@ -83,22 +78,39 @@ export default function Index() {
               </div>
               <div>
                 <h1 className="h5 fw-bold mb-0">E-SACCO</h1>
-                <p className="text-muted small">Digital Banking</p>
+                <p className="small-text small">Digital Banking</p>
               </div>
             </div>
-            <SignInButton>Sign In</SignInButton>
+            <div className="d-flex align-items-center gap-3">
+              <SignInButton variant="primary" size="sm">
+                Sign In
+              </SignInButton>
+              <Form.Check
+                type="switch"
+                id="header-theme-toggle"
+                label={
+                  <span className="d-flex align-items-center">
+                    {theme === 'light' ? <BsSun size={20} aria-hidden="true" /> : <BsMoon size={20} aria-hidden="true" />}
+                  </span>
+                }
+                checked={theme === 'dark'}
+                onChange={handleThemeToggle}
+                aria-label="Toggle theme"
+                className="me-1"
+              />
+            </div>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-5">
+      <section className="ebg py-5">
         <div className="container text-center">
           <div className="mx-auto" style={{ maxWidth: '48rem' }}>
             <h2 className="display-4 fw-bold mb-4">
               Your Digital Savings & Credit Cooperative
             </h2>
-            <p className="lead text-muted mb-4">
+            <p className="lead small-text mb-4">
               Join thousands of members who trust E-SACCO for secure savings,
               affordable loans, and financial growth. Banking made simple,
               transparent, and member-focused.
@@ -116,12 +128,12 @@ export default function Index() {
       </section>
 
       {/* Features */}
-      <section className="py-5 bg-light">
+      <section className="ebg py-5">
         <div className="container">
           <div className="text-center mb-5">
             <h3 className="h2 fw-bold mb-3">Why Choose E-SACCO?</h3>
             <p
-              className="text-muted lead"
+              className="small-text lead"
               style={{ maxWidth: '40rem', margin: 'auto' }}
             >
               Experience modern banking with the personal touch of a cooperative
@@ -141,7 +153,7 @@ export default function Index() {
                       </div>
                     </div>
                     <h4 className="fw-semibold mb-2">{feature.title}</h4>
-                    <p className="text-muted small">{feature.description}</p>
+                    <p className="small-text small">{feature.description}</p>
                   </Card.Body>
                 </Card>
               </div>
@@ -151,33 +163,33 @@ export default function Index() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-5">
+      <section className="ebg py-5">
         <div className="container">
           <div className="row row-cols-1 row-cols-md-3 g-4 text-center">
             <div className="col">
               <div className="h3 fw-bold text-primary mb-2">10,000+</div>
-              <div className="text-muted">Active Members</div>
+              <div className="small-text">Active Members</div>
             </div>
             <div className="col">
               <div className="h3 fw-bold text-primary mb-2">USH 2B+</div>
-              <div className="text-muted">Total Savings</div>
+              <div className="small-text">Total Savings</div>
             </div>
             <div className="col">
               <div className="h3 fw-bold text-primary mb-2">5.5%</div>
-              <div className="text-muted">Annual Interest Rate</div>
+              <div className="small-text">Annual Interest Rate</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-5 bg-primary text-white">
+      <section className="py-5 bg-primary">
         <div className="container text-center">
           <h3 className="h2 fw-bold mb-3">
             Ready to Start Your Financial Journey?
           </h3>
           <p
-            className="lead text-white mb-4"
+            className="lead small-text mb-4"
             style={{ maxWidth: '40rem', margin: 'auto' }}
           >
             Join E-SACCO today and take control of your financial future with
@@ -188,28 +200,6 @@ export default function Index() {
           </SignInButton>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-secondary py-4">
-        <div className="container text-center">
-          <div className="d-flex align-items-center justify-content-center gap-3 mb-3">
-            <div
-              className="d-flex align-items-center justify-content-center rounded bg-primary text-white"
-              style={{ width: '40px', height: '40px' }}
-            >
-              <BsBank size={24} />
-            </div>
-            <span className="h5 fw-bold">E-SACCO</span>
-          </div>
-          <p className="text-muted mb-3">
-            Licensed and regulated by SASRA (Sacco Societies Regulatory
-            Authority)
-          </p>
-          <p className="text-muted small">
-            © {new Date().getFullYear()} E-SACCO. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

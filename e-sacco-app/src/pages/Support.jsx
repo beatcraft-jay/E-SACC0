@@ -15,6 +15,7 @@ import {
   BsQuestionCircle
 } from 'react-icons/bs';
 import AppLayout from '../components/AppLayout.jsx';
+import Footer from '../components/Footer.jsx';
 
 // Mock useAuth hook
 function useAuth() {
@@ -46,11 +47,11 @@ function Support() {
   useEffect(() => {
     const checkChatAvailability = () => {
       const now = new Date();
-      const hours = now.getHours(); // EAT is UTC+3, no adjustment needed
+      const hours = now.getHours(); 
       setIsChatOnline(hours >= 9 && hours < 17);
     };
     checkChatAvailability();
-    const interval = setInterval(checkChatAvailability, 60000); // Check every minute
+    const interval = setInterval(checkChatAvailability, 60000); 
     return () => clearInterval(interval);
   }, []);
 
@@ -387,6 +388,7 @@ function Support() {
             <Toast.Body className="text-white">{showToast.message}</Toast.Body>
           </Toast>
         </ToastContainer>
+        <Footer/>
       </div>
   );
 }

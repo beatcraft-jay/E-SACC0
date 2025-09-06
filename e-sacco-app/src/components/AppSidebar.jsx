@@ -11,7 +11,7 @@ import {
   BsChat,
   BsBell,
   BsGear,
-} from 'react-icons/bs'; // Use react-icons/bs
+} from 'react-icons/bs';
 import img1 from '../assets/img/img1.jpeg';
 
 // Mock useUser hook
@@ -19,7 +19,7 @@ function useUser() {
   return {
     isAuthenticated: true,
     name: 'Ssentema Derrick',
-    avatar: img1, // Use a local placeholder
+    avatar: img1,
   };
 }
 
@@ -48,19 +48,21 @@ const secondaryNavigation = [
   { title: 'Settings', url: '/settings', icon: BsGear },
 ];
 
-function AppSidebar({ isOpen, onToggleSidebar }) {
+function AppSidebar({ isOpen, onCloseSidebar }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { name, avatar, isAuthenticated } = useUser();
 
   const handleNavClick = (url) => (e) => {
     e.preventDefault();
-    if (window.innerWidth < 992 && onToggleSidebar) {
-      onToggleSidebar();
+    
+    // Close sidebar on mobile after clicking a link
+    if (window.innerWidth < 992 && typeof onCloseSidebar === 'function') {
+      onCloseSidebar();
     }
-    setTimeout(() => {
-      navigate(url);
-    }, 0);
+    
+    // Navigate to the target URL
+    navigate(url);
   };
 
   return (
@@ -79,7 +81,7 @@ function AppSidebar({ isOpen, onToggleSidebar }) {
                 alt="E-SACCO logo"
                 onError={(e) => {
                   e.target.src =
-                    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0yMCAyMXYtMmE0IDQgMCAwIDAtNC00SDhhNCA0IDAgMCAwLTQgNHYyIj48L3BhdGg+PGNpcmNsZSBjeD0iMTIiIGN5PSI3IiByPSI0Ij48L2NpcmNsZT48L3N2Zz4=';
+                    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0yMCAyMXYtMmE0IDQgMCAwIDAtNC00SDhhNCA0IDAgMCAwLTQgNHYyIj48L3BhdGg+PGNpcmNsZSBjeD0iMTIiIGN5PSI7IiByPSI0Ij48L2NpcmNsZT48L3N2Zz4=';
                 }}
               />
             </div>

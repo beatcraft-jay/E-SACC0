@@ -3,6 +3,7 @@ import { Button, Card, Form, Modal, OverlayTrigger, Tooltip, ProgressBar } from 
 import { BsArrowUpRight, BsCash, BsBook, BsArrowUp, BsArrowDown } from 'react-icons/bs';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 // Mock useAuth hook (consistent with Loans.jsx)
 function useAuth() {
@@ -277,6 +278,7 @@ function Shares() {
           )}
         </Card.Body>
       </Card>
+      <Footer/>
     </div>
   );
 }

@@ -5,11 +5,12 @@ import { BsQuestionCircle, BsPerson } from 'react-icons/bs';
 import { format } from 'date-fns';
 import AppLayout from '../components/AppLayout.jsx';
 import { useTheme } from '../context/ThemeContext';
+import Footer from '../components/Footer.jsx';
 
 // Mock useAuth hook
 function useAuth() {
   return {
-    isAuthenticated: true, // Change to false to test unauthenticated state
+    isAuthenticated: true, 
   };
 }
 
@@ -39,7 +40,7 @@ const faqData = [
 
 function Faqs() {
   const { isAuthenticated } = useAuth();
-  const { theme } = useTheme(); // Use ThemeContext for styling
+  const { theme } = useTheme(); 
   const [filter, setFilter] = useState('all');
 
   const filteredFaqs = filter === 'all'
@@ -126,6 +127,7 @@ function Faqs() {
             )}
           </Card.Body>
         </Card>
+        <Footer/>
       </div>
   );
 }

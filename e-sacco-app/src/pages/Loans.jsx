@@ -4,6 +4,7 @@ import { BsCreditCard, BsArrowDownLeft, BsArrowUpRight, BsBook } from 'react-ico
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import AppLayout from '../components/AppLayout.jsx';
+import Footer from '../components/Footer.jsx';
 
 // Mock useAuth hook
 function useAuth() {
@@ -352,6 +353,7 @@ function Loans() {
             )}
           </Card.Body>
         </Card>
+        <Footer/>
       </div>
   );
 }

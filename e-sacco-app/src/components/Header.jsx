@@ -1,6 +1,5 @@
-// src/components/Header.jsx
 import { useEffect } from 'react';
-import { Navbar, Form, FormControl, Button, Badge } from 'react-bootstrap';
+import { Navbar, Form, Button, Badge } from 'react-bootstrap';
 import { BsBell, BsSearch, BsSun, BsMoon } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
@@ -8,13 +7,13 @@ import { useTheme } from '../context/ThemeContext';
 // Mock useUser hook for authentication
 function useUser() {
   return {
-    isAuthenticated: true, // Change to false to test unauthenticated state
+    isAuthenticated: true,
   };
 }
 
 // Mock dashboard data for notifications
 const mockDashboardData = {
-  unreadNotificationsCount: 5, // Mock notification count
+  unreadNotificationsCount: 5,
 };
 
 function Header({ onToggleSidebar }) {
@@ -22,19 +21,15 @@ function Header({ onToggleSidebar }) {
   const { isAuthenticated } = useUser();
   const dashboardData = isAuthenticated ? mockDashboardData : null;
 
- 
   const handleThemeToggle = (e) => {
     const newTheme = e.target.checked ? 'dark' : 'light';
-    console.log('Header toggle: setting theme to', newTheme);
     setTheme(newTheme);
   };
 
-  // Apply theme to document and sync with localStorage
   useEffect(() => {
     try {
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
-      console.log('Header: applied theme', theme); 
     } catch (error) {
       console.error('Header: Error accessing localStorage:', error);
     }
@@ -59,7 +54,7 @@ function Header({ onToggleSidebar }) {
               size={16}
               aria-hidden="true"
             />
-            <FormControl
+            <Form.Control
               type="search"
               placeholder="Search transactions, accounts..."
               className="ps-5"

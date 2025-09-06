@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Card, Form, Modal, Image } from 'react-bootstrap';
 import { Person, House, PencilSquare } from 'react-bootstrap-icons';
 import img1 from '../assets/img/img1.jpeg';
+import Footer from '../components/Footer';
 
 function AppLayout({ children }) {
   return (
@@ -234,6 +235,7 @@ function Profile() {
           </Form>
         </Modal.Body>
       </Modal>
+      <Footer/>
     </div>
   );
 }
