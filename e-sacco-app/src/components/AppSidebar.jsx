@@ -1,3 +1,4 @@
+// src/components/AppSidebar.jsx
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Nav, Card, Image, Button } from 'react-bootstrap';
 import {
@@ -48,20 +49,17 @@ const secondaryNavigation = [
   { title: 'Settings', url: '/settings', icon: BsGear },
 ];
 
-function AppSidebar({ isOpen, onCloseSidebar }) {
+function AppSidebar({ isOpen, toggleSidebar }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { name, avatar, isAuthenticated } = useUser();
 
   const handleNavClick = (url) => (e) => {
     e.preventDefault();
-    
-    // Close sidebar on mobile after clicking a link
-    if (window.innerWidth < 992 && typeof onCloseSidebar === 'function') {
-      onCloseSidebar();
+    if (window.innerWidth < 992 && toggleSidebar) {
+      toggleSidebar(false);
+      console.log('Sidebar: Closing on nav click (mobile view)');
     }
-    
-    // Navigate to the target URL
     navigate(url);
   };
 
@@ -81,7 +79,7 @@ function AppSidebar({ isOpen, onCloseSidebar }) {
                 alt="E-SACCO logo"
                 onError={(e) => {
                   e.target.src =
-                    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0yMCAyMXYtMmE0IDQgMCAwIDAtNC00SDhhNCA0IDAgMCAwLTQgNHYyIj48L3BhdGg+PGNpcmNsZSBjeD0iMTIiIGN5PSI7IiByPSI0Ij48L2NpcmNsZT48L3N2Zz4=';
+                    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0yMCAyMXYtMmE0IDQgMCAwIDAtNC00SDhhNCA0IDAgMCAwLTQgNHYyIj48L3BhdGg+PGNpcmNsZSBjeD0iMTIiIGN5PSI3IiByPSI0Ij48L2NpcmNsZT48L3N2Zz4=';
                 }}
               />
             </div>

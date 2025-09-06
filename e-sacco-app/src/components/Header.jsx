@@ -1,3 +1,4 @@
+// src/components/Header.jsx
 import { useEffect } from 'react';
 import { Navbar, Form, Button, Badge } from 'react-bootstrap';
 import { BsBell, BsSearch, BsSun, BsMoon } from 'react-icons/bs';
@@ -16,13 +17,14 @@ const mockDashboardData = {
   unreadNotificationsCount: 5,
 };
 
-function Header({ onToggleSidebar }) {
+function Header({ onMenuClick }) {
   const { theme, setTheme } = useTheme();
   const { isAuthenticated } = useUser();
   const dashboardData = isAuthenticated ? mockDashboardData : null;
 
   const handleThemeToggle = (e) => {
     const newTheme = e.target.checked ? 'dark' : 'light';
+    console.log('Header: Setting theme to', newTheme);
     setTheme(newTheme);
   };
 
@@ -30,6 +32,7 @@ function Header({ onToggleSidebar }) {
     try {
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
+      console.log('Header: Theme persisted to', theme);
     } catch (error) {
       console.error('Header: Error accessing localStorage:', error);
     }
@@ -43,7 +46,10 @@ function Header({ onToggleSidebar }) {
             variant="outline-primary"
             size="sm"
             className="d-lg-none"
-            onClick={onToggleSidebar}
+            onClick={() => {
+              onMenuClick();
+              console.log('Header: Hamburger menu clicked');
+            }}
             aria-label="Toggle sidebar"
           >
             ☰

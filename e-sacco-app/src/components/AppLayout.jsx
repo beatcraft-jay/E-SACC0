@@ -13,6 +13,7 @@ function AppLayout({ children }) {
     const handleResize = () => {
       if (window.innerWidth >= 992) {
         setIsSidebarOpen(false);
+        console.log('AppLayout: Sidebar closed due to desktop resize');
       }
     };
 
@@ -22,7 +23,10 @@ function AppLayout({ children }) {
   }, []);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
+    setIsSidebarOpen((prev) => {
+      console.log('AppLayout: Sidebar toggled to', !prev);
+      return !prev;
+    });
   };
 
   return (
@@ -31,7 +35,10 @@ function AppLayout({ children }) {
       {isSidebarOpen && (
         <div
           className="sidebar-backdrop d-lg-none"
-          onClick={() => setIsSidebarOpen(false)}
+          onClick={() => {
+            setIsSidebarOpen(false);
+            console.log('AppLayout: Backdrop clicked, closing sidebar');
+          }}
           style={{
             position: 'fixed',
             top: 0,
@@ -46,13 +53,13 @@ function AppLayout({ children }) {
       <Row className="g-0">
         {/* Sidebar */}
         <Col xs="auto">
-          <AppSidebar isOpen={ isSidebarOpen} toggleSidebar={setIsSidebarOpen} />
+          <AppSidebar isOpen={isSidebarOpen} toggleSidebar={setIsSidebarOpen} />
         </Col>
 
         {/* Main Content */}
         <Col className="main-content">
           <Header onMenuClick={toggleSidebar} />
-          <main className="p-3 bg-light" style={{ paddingBottom: '60px', minHeight: 'calc(100vh - 120px)' }}>
+          <main className="p-3" style={{ paddingBottom: '60px', minHeight: 'calc(100vh - 120px)' }}>
             <Container fluid style={{ maxWidth: '1280px' }}>
               {children}
             </Container>
