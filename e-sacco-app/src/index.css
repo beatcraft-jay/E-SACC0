@@ -116,7 +116,7 @@ a:hover, .nav-link:hover {
 }
 
 .btn-primary:hover {
-  background-color: #6a0dad !important; /* deeper purple */
+  background-color: #6a0dad !important; 
   border-color: #6a0dad !important;
 }
 
@@ -134,7 +134,7 @@ a:hover, .nav-link:hover {
    NAV ACTIVE
 ============================== */
 .nav-clicked {
-  background-color: rgba(128, 0, 128, 0.15) !important; /* semi-transparent purple */
+  background-color: rgba(128, 0, 128, 0.15) !important; 
   color: var(--accent-color) !important;
   border-radius: 8px;
 }
@@ -156,12 +156,12 @@ a:hover, .nav-link:hover {
 }
 
 .nav-btn-bg {
-  color: var(--primary-text-color) !important; /* Changed from #000 */
+  color: var(--primary-text-color) !important;
   transition: all 0.3s ease-in-out !important;
 }
 
 .nav-btn-bg:hover {
-  color: var(--accent-color) !important; /* Changed from #791d7c */
+  color: var(--accent-color) !important; 
 }
 
 .nav-btn-bg:hover {
@@ -234,7 +234,7 @@ a:hover, .nav-link:hover {
   font-optical-sizing: auto;
   font-weight: 200;
   font-style: normal;
-  color: var(--secondary-text-color) !important; /* Add this line */
+  color: var(--secondary-text-color) !important; 
 }
 
 .password-toggle-icon{
@@ -272,7 +272,7 @@ a:hover, .nav-link:hover {
   }
 
   .bg{
-    background-image: url(./img/cool-background.png);
+    background-image: var(--background-image);
     width: 370px;
     
   }
@@ -299,7 +299,7 @@ a:hover, .nav-link:hover {
   }
 
   .bg{
-    background-image: url(./img/cool-background.png);
+    background-image: var(--background-image);
     width: 370px;
     
   }
@@ -352,7 +352,7 @@ a:hover, .nav-link:hover {
 }
 
 .network-option:hover {
-  border-color: #6f42c1; /* Bootstrap primary */
+  border-color: #6f42c1; 
   box-shadow: 0 4px 12px rgba(111, 66, 193, 0.2);
 }
 
@@ -394,7 +394,7 @@ a:hover, .nav-link:hover {
   background-color: #f8f9fa;
 }
 .tooltip-inner {
-  white-space: pre-line; /* Support line breaks in tooltip */
+  white-space: pre-line;
 }
 
 .progress {
@@ -431,7 +431,7 @@ a:hover, .nav-link:hover {
 }
 
 .conversation-card {
-  max-height: 300px; /* Adjust as needed */
+  max-height: 300px; 
 }
 .conversation-card-body {
   overflow-y: auto;
@@ -487,4 +487,74 @@ a:hover, .nav-link:hover {
 
 .social-icon:hover::before {
   opacity: 0.2; 
+}
+
+/* ==============================
+   CHAT AREA (Light & Dark Mode)
+============================== */
+
+/* Common message bubble styling */
+.chat-area .message {
+  position: relative;
+  padding: 10px 14px;
+  border-radius: 8px;
+  max-width: 70%;
+  word-break: break-word;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Received messages (light mode) */
+.chat-area .message.received {
+  background-color: #f1f0f0;
+  color: #212529;
+}
+
+/* Sent messages */
+.chat-area .message.sent {
+  background-color: #a62db1;
+  color: #fff;
+}
+
+/* ==============================
+   DARK MODE
+============================== */
+
+[data-theme="dark"] .chat-area .message.received {
+  background-color: #1e1e1e !important; 
+  color: #f8f9fa !important;           
+}
+
+[data-theme="dark"] .chat-area .message.sent {
+  background-color: #a62db1 !important; 
+  color: #fff !important;
+}
+
+/* ==============================
+   STATUS CHECKMARKS
+============================== */
+
+.chat-area .message .status {
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: #6c757d; /* muted */
+}
+
+/* Sent (read) status accent */
+.chat-area .message.sent .status.read {
+  color: var(--accent-color) !important;
+}
+
+.ebg {
+  background-color: var(--foreground-color) !important;
+}
+
+.ebg1 {
+  background-color: var(--background-color) !important;
 }

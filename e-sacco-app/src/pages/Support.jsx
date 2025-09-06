@@ -345,7 +345,7 @@ function Support() {
                 filteredFaqs.map((faq, index) => (
                   <Accordion.Item key={index} eventKey={index.toString()}>
                     <Accordion.Header>{faq.question}</Accordion.Header>
-                    <Accordion.Body>{faq.answer}</Accordion.Body>
+                    <Accordion.Body className='accordion'>{faq.answer}</Accordion.Body>
                   </Accordion.Item>
                 ))
               ) : (
@@ -353,7 +353,7 @@ function Support() {
               )}
             </Accordion>
             <div className="text-center mt-3">
-              <a href="/faq" className="text-primary" aria-label="View all FAQs">
+              <a href="/faqs" className="text-primary" aria-label="View all FAQs">
                 View All FAQs
               </a>
             </div>

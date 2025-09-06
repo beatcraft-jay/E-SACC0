@@ -16,7 +16,9 @@ import AppSidebar from './components/AppSidebar.jsx';
 import Notifications from './pages/Notifications.jsx';
 import Settings from './pages/Settings.jsx';
 import Forum from './pages/Forum.jsx';
+import Faqs from './pages/Faqs.jsx';
 import { NotificationProvider } from './context/NotificationContext.jsx';
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -26,6 +28,7 @@ function App() {
   };
 
   return (
+    <ThemeProvider>
     <NotificationProvider>
     <BrowserRouter>
       <div className="d-flex">
@@ -47,6 +50,7 @@ function App() {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/forum" element={<Forum />} />
+            <Route path="/faqs" element={<Faqs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           </main>
@@ -54,6 +58,7 @@ function App() {
       </div>
     </BrowserRouter>
     </NotificationProvider>
+    </ThemeProvider>
   );
 }
 

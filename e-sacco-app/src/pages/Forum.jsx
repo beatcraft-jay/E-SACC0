@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Button, Card, Form, InputGroup, ListGroup, Badge, Dropdown } from 'react-bootstrap';
-import { BsChat, BsPeople, BsQuestionCircle, BsPinAngle, BsPaperclip, BsThreeDots, BsEmojiSmile, BsPlusCircle, BsCheck2, BsCheck2All } from 'react-icons/bs';
+import { Button, Card, Form, InputGroup, ListGroup, Badge, Dropdown, Modal } from 'react-bootstrap';
+import { BsChat, BsPeople, BsQuestionCircle, BsPinAngle, BsPaperclip, BsThreeDots, BsEmojiSmile, BsPlusCircle, BsCheck2, BsCheck2All, BsPerson } from 'react-icons/bs';
 import { format } from 'date-fns';
 import AppLayout from '../components/AppLayout.jsx';
 import jane from '../assets/img/jane.jpeg';
 import mike from '../assets/img/mike.jpeg';
+import { BsBell, BsSearch } from 'react-icons/bs'; 
 
 // Mock useAuth hook
 function useAuth() {
@@ -13,6 +14,13 @@ function useAuth() {
     user: { id: '1', name: 'John Doe' },
   };
 }
+
+// Mock users
+const mockUsers = [
+  { id: '2', name: 'Jane Smith', avatar: jane },
+  { id: '3', name: 'Mike Johnson', avatar: mike },
+  { id: '4', name: 'Alice Brown', avatar: mike }, // Reuse avatar for example
+];
 
 // Mock conversation data
 const mockConversations = {
@@ -25,11 +33,28 @@ const mockConversations = {
       pinned: false,
       unread: false,
       messages: [
-        { id: 'm1', senderId: '2', content: 'Can we discuss the loan terms?', time: new Date(), status: 'delivered' },
-        { id: 'm2', senderId: '1', content: 'Sure, let me check the details.', time: new Date(Date.now() - 3600000), status: 'sent' },
-        { id: 'm3', senderId: '2', content: 'so?', time: new Date(), status: 'delivered' },
-        { id: 'm4', senderId: '1', content: 'so you are currently not eligible for a loan. keep saving and try again in a few months, thank you.', time: new Date(Date.now() - 3600000), status: 'sent' },
-      ],
+        { id: 'm1', senderId: '2', content: 'Hello, I’d like to know if I qualify for a loan.', time: new Date(Date.now() - 86400000 * 10), status: 'delivered' },
+        { id: 'm2', senderId: '1', content: 'Sure, I’ll need to check your details first.', time: new Date(Date.now() - 86400000 * 10 + 600000), status: 'sent' },
+        { id: 'm3', senderId: '2', content: 'What information do you need from me?', time: new Date(Date.now() - 86400000 * 9), status: 'delivered' },
+        { id: 'm4', senderId: '1', content: 'Basic income records and savings balance would help.', time: new Date(Date.now() - 86400000 * 9 + 900000), status: 'sent' },
+        { id: 'm5', senderId: '2', content: 'I have some payslips I can share.', time: new Date(Date.now() - 86400000 * 8), status: 'delivered' },
+        { id: 'm6', senderId: '1', content: 'Great, please upload them here.', time: new Date(Date.now() - 86400000 * 8 + 1200000), status: 'sent' },
+        { id: 'm7', senderId: '2', content: 'Done. Uploaded last 3 months of payslips.', time: new Date(Date.now() - 86400000 * 7), status: 'delivered' },
+        { id: 'm8', senderId: '1', content: 'Thanks, I’ll review them shortly.', time: new Date(Date.now() - 86400000 * 7 + 300000), status: 'sent' },
+        { id: 'm9', senderId: '1', content: 'I see your income is consistent, but your savings are low.', time: new Date(Date.now() - 86400000 * 6), status: 'sent' },
+        { id: 'm10', senderId: '2', content: 'Does that mean I can’t get a loan right now?', time: new Date(Date.now() - 86400000 * 6 + 1200000), status: 'delivered' },
+        { id: 'm11', senderId: '1', content: 'Currently, you don’t meet the minimum eligibility.', time: new Date(Date.now() - 86400000 * 5), status: 'sent' },
+        { id: 'm12', senderId: '2', content: 'Oh, that’s disappointing.', time: new Date(Date.now() - 86400000 * 5 + 1800000), status: 'delivered' },
+        { id: 'm13', senderId: '1', content: 'I recommend saving a bit more for at least 3 months.', time: new Date(Date.now() - 86400000 * 4), status: 'sent' },
+        { id: 'm14', senderId: '2', content: 'Okay, I’ll try to increase my savings.', time: new Date(Date.now() - 86400000 * 4 + 600000), status: 'delivered' },
+        { id: 'm15', senderId: '2', content: 'Is there any small loan option I can access now?', time: new Date(Date.now() - 86400000 * 3), status: 'delivered' },
+        { id: 'm16', senderId: '1', content: 'There are micro-loans, but interest is higher.', time: new Date(Date.now() - 86400000 * 3 + 1200000), status: 'sent' },
+        { id: 'm17', senderId: '2', content: 'Hmm, I’d prefer to wait and qualify for a better option.', time: new Date(Date.now() - 86400000 * 2), status: 'delivered' },
+        { id: 'm18', senderId: '1', content: 'That’s a wise decision. Build your savings, then reapply.', time: new Date(Date.now() - 86400000 * 2 + 900000), status: 'sent' },
+        { id: 'm19', senderId: '2', content: 'Thank you for the guidance!', time: new Date(Date.now() - 86400000), status: 'delivered' },
+        { id: 'm20', senderId: '1', content: 'Anytime. Feel free to reach out with more questions.', time: new Date(Date.now() - 86400000 + 300000), status: 'sent' },
+      ]
+      
     },
     {
       id: '2',
@@ -78,6 +103,22 @@ function Forum() {
   const [message, setMessage] = useState('');
   const [conversations, setConversations] = useState(mockConversations);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showIndividualModal, setShowIndividualModal] = useState(false);
+  const [showGroupModal, setShowGroupModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [groupName, setGroupName] = useState('');
+  const [selectedMembers, setSelectedMembers] = useState([]);
+
+  const getUserName = (id) => {
+    if (id === user.id) return user.name;
+    const u = mockUsers.find((u) => u.id === id);
+    return u ? u.name : 'Unknown';
+  };
+
+  const getUserAvatar = (id) => {
+    const u = mockUsers.find((u) => u.id === id);
+    return u ? u.avatar : '';
+  };
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -164,8 +205,57 @@ function Forum() {
   };
 
   const handleNewConversation = (type) => {
-    alert(`Start a new ${type} conversation`);
-    // Add logic to create a new conversation or group
+    if (type === 'individual') {
+      setShowIndividualModal(true);
+    } else if (type === 'group') {
+      setShowGroupModal(true);
+    }
+  };
+
+  const handleStartChat = (selectedUser) => {
+    const exists = conversations.individual.find((c) => c.user.id === selectedUser.id);
+    if (exists) {
+      setSelectedConversation({ ...exists, type: 'individual' });
+    } else {
+      const newConv = {
+        id: `new${conversations.individual.length + 1}`,
+        user: selectedUser,
+        lastMessage: '',
+        lastMessageTime: new Date(),
+        pinned: false,
+        unread: false,
+        messages: [],
+      };
+      setConversations({
+        ...conversations,
+        individual: [...conversations.individual, newConv],
+      });
+      setSelectedConversation({ ...newConv, type: 'individual' });
+    }
+    setShowIndividualModal(false);
+    setSearchQuery('');
+  };
+
+  const handleCreateGroup = () => {
+    if (!groupName || selectedMembers.length === 0) return;
+    const newGroup = {
+      id: `g${conversations.group.length + 1}`,
+      name: groupName,
+      members: [...selectedMembers, user.id],
+      lastMessage: '',
+      lastMessageTime: new Date(),
+      pinned: false,
+      unread: false,
+      messages: [],
+    };
+    setConversations({
+      ...conversations,
+      group: [...conversations.group, newGroup],
+    });
+    setSelectedConversation({ ...newGroup, type: 'group' });
+    setShowGroupModal(false);
+    setGroupName('');
+    setSelectedMembers([]);
   };
 
   // Calculate unread message count for a conversation
@@ -222,13 +312,13 @@ function Forum() {
                         </Badge>
                       )}
                     </div>
-                    <p className="text-muted small text-truncate mb-0" style={{ maxWidth: '100%' }}>
+                    <p className="small-text small text-truncate mb-0" style={{ maxWidth: '100%' }}>
                       {conv.lastMessage}
                     </p>
                   </div>
                   <div className="d-flex flex-column align-items-end gap-1">
-                    <p className="text-muted small mb-0">{format(conv.lastMessageTime, 'MMM dd')}</p>
-                    <span className={conv.unread ? 'text-muted' : 'text-primary'}>
+                    <p className="small-text small mb-0">{format(conv.lastMessageTime, 'MMM dd')}</p>
+                    <span className={conv.unread ? 'small-text' : 'text-primary'}>
                       {conv.unread ? <BsCheck2 size={16} className="tick" /> : <BsCheck2All size={16} className="tick" />}
                     </span>
                     {conv.pinned && <BsPinAngle size={16} className="text-primary" />}
@@ -240,7 +330,7 @@ function Forum() {
           ) : (
             <div className="p-3 text-center">
               {icon}
-              <p className="text-muted">No {title.toLowerCase()} found.</p>
+              <p className="small-text">No {title.toLowerCase()} found.</p>
             </div>
           )}
         </ListGroup>
@@ -264,150 +354,240 @@ function Forum() {
   }
 
   return (
-      <div >
-        <h1 className="display-6 mb-4">Community Forum</h1>
-        <div className="row g-4">
-          {/* Left Column: Three Rows for Conversations */}
-          <div className="col-lg-4">
-            {renderConversationList(
-              'individual',
-              'Individual Chats',
-              <BsChat size={20} className="text-primary" />,
-              conversations.individual
-            )}
-            {renderConversationList(
-              'group',
-              'Group Chats',
-              <BsPeople size={20} className="text-primary" />,
-              conversations.group
-            )}
-            {renderConversationList(
-              'support',
-              'Support Messages',
-              <BsQuestionCircle size={20} className="text-info" />,
-              conversations.support
-            )}
-          </div>
+    <div>
+      <h1 className="display-6 mb-4">Community Forum</h1>
+      <div className="row g-4">
+        {/* Left Column: Three Rows for Conversations */}
+        <div className="col-lg-4">
+          {renderConversationList(
+            'individual',
+            'Individual Chats',
+            <BsChat size={20} className="text-primary" />,
+            conversations.individual
+          )}
+          {renderConversationList(
+            'group',
+            'Group Chats',
+            <BsPeople size={20} className="text-primary" />,
+            conversations.group
+          )}
+          {renderConversationList(
+            'support',
+            'Support Messages',
+            <BsQuestionCircle size={20} className="text-info" />,
+            conversations.support
+          )}
+        </div>
 
-          {/* Right Column: Chat Area (Phone-like) */}
-          <div className="col-lg-8">
-            <Card className="shadow main-text phone-chat">
-              <Card.Header className="shadow d-flex align-items-center justify-content-between">
-                <Card.Title as="h5" className="mb-0">
-                  {selectedConversation
-                    ? `Chat with ${selectedConversation.user ? selectedConversation.user.name : selectedConversation.name}`
-                    : 'Select a Conversation'}
-                </Card.Title>
-                {selectedConversation && (
-                  <Dropdown>
-                    <Dropdown.Toggle variant="link" id="chat-options" className="p-0">
-                      <BsThreeDots size={20} className="text-light" />
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => handleConversationAction('block', selectedConversation)}>
-                        Block
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => handleConversationAction('mute', selectedConversation)}>
-                        Mute
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => handleConversationAction('delete', selectedConversation)}>
-                        Delete Conversation
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => handlePinConversation(selectedConversation.type, selectedConversation.id)}>
-                        {selectedConversation.pinned ? 'Unpin' : 'Pin'} Conversation
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                )}
-              </Card.Header>
-              <Card.Body className="bg chat-area">
-                {selectedConversation ? (
-                  <div className="d-flex flex-column gap-3">
-                    {selectedConversation.messages.map((msg) => (
+        {/* Right Column: Chat Area (Phone-like) */}
+        <div className="col-lg-8">
+          <Card className="shadow main-text phone-chat">
+            <Card.Header className="shadow d-flex align-items-center justify-content-between">
+              <Card.Title as="h5" className="mb-0">
+                {selectedConversation
+                  ? `Chat with ${selectedConversation.user ? selectedConversation.user.name : selectedConversation.name}`
+                  : 'Select a Conversation'}
+              </Card.Title>
+              {selectedConversation && (
+                <Dropdown>
+                  <Dropdown.Toggle variant="link" id="chat-options" className="p-0">
+                    <BsThreeDots size={20} className="text-light" />
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className='main-text accordion'>
+                    <Dropdown.Item onClick={() => handleConversationAction('block', selectedConversation)}>
+                      Block
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleConversationAction('mute', selectedConversation)}>
+                      Mute
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleConversationAction('delete', selectedConversation)}>
+                      Delete Conversation
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => handlePinConversation(selectedConversation.type, selectedConversation.id)}>
+                      {selectedConversation.pinned ? 'Unpin' : 'Pin'} Conversation
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              )}
+            </Card.Header>
+            <Card.Body className="bg chat-area">
+              {selectedConversation ? (
+                <div className="d-flex flex-column gap-3">
+                  {selectedConversation.messages.reduce((acc, msg, index) => {
+                    const currentDate = format(msg.time, 'yyyy-MM-dd');
+                    const prevMsg = selectedConversation.messages[index - 1];
+                    const prevDate = prevMsg ? format(prevMsg.time, 'yyyy-MM-dd') : null;
+
+                    if (currentDate !== prevDate) {
+                      acc.push(
+                        <div key={`date-${msg.id}`} className="text-center my-3">
+                          <Badge bg="secondary">{format(msg.time, 'MMMM dd, yyyy')}</Badge>
+                        </div>
+                      );
+                    }
+
+                    acc.push(
                       <div
                         key={msg.id}
                         className={`d-flex ${msg.senderId === user.id ? 'justify-content-end' : 'justify-content-start'}`}
                       >
-                        {msg.senderId !== user.id && selectedConversation.type === 'individual' && (
+                        {msg.senderId !== user.id && (
                           <img
-                            src={selectedConversation.user.avatar}
-                            alt={selectedConversation.user.name}
+                            src={getUserAvatar(msg.senderId)}
+                            alt={getUserName(msg.senderId)}
                             className="rounded-circle me-2"
                             width="32"
                             height="32"
                           />
                         )}
-                        <div
-                          className={`p-2 rounded ${msg.senderId === user.id ? 'bg-primary text-white' : 'bg-light'}`}
-                          style={{ maxWidth: '70%', wordBreak: 'break-word' }}
-                        >
+                        <div className={`message ${msg.senderId === user.id ? 'sent' : 'received'}`}>
+                          {selectedConversation.type === 'group' && msg.senderId !== user.id && (
+                            <small className="fw-bold d-block">{getUserName(msg.senderId)}</small>
+                          )}
                           <p className="mb-1">{msg.content}</p>
-                          <p className="text-muted small mb-0">
-                            {format(msg.time, 'HH:mm')} • {msg.status}{' '}
-                            <span className={msg.status === 'sent' ? 'text-muted' : 'text-primary'}>
-                              {msg.status === 'sent' ? <BsCheck2 size={14} className="tick" /> : <BsCheck2All size={14} className="tick" />}
-                            </span>
-                          </p>
+                          <div className={`status ${msg.status === 'delivered' ? 'delivered' : 'read'}`}>
+                            {format(msg.time, 'HH:mm')}
+                            {msg.senderId === user.id && (
+                              msg.status === 'sent' ? <BsCheck2 size={14} /> : <BsCheck2All size={14} />
+                            )}
+                          </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="d-flex flex-column align-items-center justify-content-center h-100">
-                    <BsChat size={32} className="mb-3" />
-                    <p className="text-muted">Select a conversation to start chatting.</p>
-                  </div>
-                )}
-              </Card.Body>
-              {selectedConversation && (
-                <Card.Footer>
-                  <Form onSubmit={handleSendMessage}>
-                    <InputGroup>
-                      <InputGroup.Text className="position-relative">
-                        <BsEmojiSmile
-                          className="cursor-pointer"
-                          onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                        />
-                        {showEmojiPicker && (
-                          <div className="position-absolute bottom-100 mb-2 p-2 bg-white border rounded shadow">
-                            {['😊', '👍', '😂', '❤️', '🚀'].map((emoji) => (
-                              <span
-                                key={emoji}
-                                className="emoji cursor-pointer me-2"
-                                onClick={() => handleEmojiSelect(emoji)}
-                              >
-                                {emoji}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </InputGroup.Text>
-                      <Form.Control
-                        type="text"
-                        placeholder="Type a message..."
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                      />
-                      <input
-                        type="file"
-                        id="file-upload"
-                        style={{ display: 'none' }}
-                        onChange={handleFileUpload}
-                      />
-                      <Button variant="outline-primary" as="label" htmlFor="file-upload">
-                        <BsPaperclip />
-                      </Button>
-                      <Button type="submit" variant="primary">
-                        Send
-                      </Button>
-                    </InputGroup>
-                  </Form>
-                </Card.Footer>
+                    );
+
+                    return acc;
+                  }, [])}
+                </div>
+              ) : (
+                <div className="d-flex flex-column align-items-center justify-content-center h-100">
+                  <BsChat size={32} className="mb-3" />
+                  <p className="small-text">Select a conversation to start chatting.</p>
+                </div>
               )}
-            </Card>
-          </div>
+            </Card.Body>
+            {selectedConversation && (
+              <Card.Footer className='accordion'>
+                <Form onSubmit={handleSendMessage}>
+                  <InputGroup>
+                    <InputGroup.Text className="position-relative">
+                      <BsEmojiSmile
+                        className="cursor-pointer"
+                        onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                      />
+                      {showEmojiPicker && (
+                        <div className="position-absolute bottom-100 mb-2 p-2 bg-white border rounded shadow">
+                          {['😊', '👍', '😂', '❤️', '🚀'].map((emoji) => (
+                            <span
+                              key={emoji}
+                              className="emoji cursor-pointer me-2"
+                              onClick={() => handleEmojiSelect(emoji)}
+                            >
+                              {emoji}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Type a message..."
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                    />
+                    <input
+                      type="file"
+                      id="file-upload"
+                      style={{ display: 'none' }}
+                      onChange={handleFileUpload}
+                    />
+                    <Button variant="outline-primary" as="label" htmlFor="file-upload">
+                      <BsPaperclip />
+                    </Button>
+                    <Button type="submit" variant="primary">
+                      Send
+                    </Button>
+                  </InputGroup>
+                </Form>
+              </Card.Footer>
+            )}
+          </Card>
         </div>
       </div>
+
+      {/* Individual Chat Modal */}
+      <Modal className='main-text' show={showIndividualModal} onHide={() => { setShowIndividualModal(false); setSearchQuery(''); }}>
+        <Modal.Header  closeButton>
+          <Modal.Title >Start New Chat</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Form className="position-relative">
+            <BsSearch className="position-absolute top-50 start-0 translate-middle-y ms-3" size={16} />
+            <Form.Control
+              type="search"
+              placeholder="Search user..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+              className="ps-5"
+            />
+          </Form>
+          <ListGroup className="mt-3">
+            {mockUsers
+              .filter((u) => u.name.toLowerCase().includes(searchQuery.toLowerCase()) && u.id !== user.id)
+              .map((u) => (
+                <ListGroup.Item className='accordion' key={u.id} action onClick={() => handleStartChat(u)}>
+                  <img
+                    src={u.avatar}
+                    alt={u.name}
+                    className="rounded-circle me-2"
+                    width="32"
+                    height="32"
+                  />
+                  {u.name}
+                </ListGroup.Item>
+              ))}
+          </ListGroup>
+        </Modal.Body>
+      </Modal>
+
+      {/* Group Chat Modal */}
+      <Modal className='main-text' show={showGroupModal} onHide={() => { setShowGroupModal(false); setGroupName(''); setSelectedMembers([]); }}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create New Group</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group className="mb-3">
+            <Form.Label className='main-text'>Group Name</Form.Label>
+            <Form.Control value={groupName} onChange={(e) => setGroupName(e.target.value)} />
+          </Form.Group>
+          <h6>Select Members</h6>
+          <ListGroup>
+            {mockUsers.map((u) => (
+              <ListGroup.Item className='accordion main-text' key={u.id}>
+                <Form.Check
+                  type="checkbox"
+                  label={u.name}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSelectedMembers([...selectedMembers, u.id]);
+                    } else {
+                      setSelectedMembers(selectedMembers.filter((id) => id !== u.id));
+                    }
+                  }}
+                />
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => { setShowGroupModal(false); setGroupName(''); setSelectedMembers([]); }}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleCreateGroup} disabled={!groupName || selectedMembers.length === 0}>
+            Create
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Nav, Card, Image, Button } from 'react-bootstrap';
 import {
   BsBank,
@@ -24,9 +24,9 @@ function useUser() {
 }
 
 // SignInButton component
-function SignInButton({ className }) {
+function SignInButton({ className, onClick }) {
   return (
-    <Button as={Link} to="/signin" className={`btn btn-primary w-100 ${className}`}>
+    <Button as={Link} to="/signin" className={`btn btn-primary w-100 ${className}`} onClick={onClick}>
       Sign In
     </Button>
   );
@@ -48,9 +48,20 @@ const secondaryNavigation = [
   { title: 'Settings', url: '/settings', icon: BsGear },
 ];
 
-function AppSidebar({ isOpen }) {
+function AppSidebar({ isOpen, onToggleSidebar }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const { name, avatar, isAuthenticated } = useUser();
+
+  const handleNavClick = (url) => (e) => {
+    e.preventDefault();
+    if (window.innerWidth < 992 && onToggleSidebar) {
+      onToggleSidebar();
+    }
+    setTimeout(() => {
+      navigate(url);
+    }, 0);
+  };
 
   return (
     <div
@@ -59,7 +70,7 @@ function AppSidebar({ isOpen }) {
     >
       <Card className="bg h-100 border-end rounded-0">
         <Card.Header className="bg">
-          <div className="bg logo-area d-flex align-items-center gap-3">
+          <div className="logo-area d-flex align-items-center gap-3">
             <div>
               <Image
                 src="../assets/img/LOGO.png"
@@ -87,6 +98,7 @@ function AppSidebar({ isOpen }) {
                   as={Link}
                   to={item.url}
                   key={item.title}
+                  onClick={handleNavClick(item.url)}
                   className={`nav-btn-bg d-flex align-items-center gap-2 py-2 px-3 rounded ${
                     location.pathname === item.url ? 'bg-primary text-white' : ''
                   }`}
@@ -103,7 +115,8 @@ function AppSidebar({ isOpen }) {
                   as={Link}
                   to={item.url}
                   key={item.title}
-                  className={`main-text nav-btn-bg d-flex align-items-center gap-2 py-2 px-3 rounded ${
+                  onClick={handleNavClick(item.url)}
+                  className={`nav-btn-bg d-flex align-items-center gap-2 py-2 px-3 rounded ${
                     location.pathname === item.url ? 'bg-primary text-white' : ''
                   }`}
                 >
@@ -116,7 +129,7 @@ function AppSidebar({ isOpen }) {
         </Card.Body>
         <Card.Footer className="p-4">
           {isAuthenticated ? (
-            <Link to="/profile" className="text-decoration-none">
+            <Link to="/profile" onClick={handleNavClick('/profile')} className="text-decoration-none">
               <div className="logo-area d-flex align-items-center gap-3 rounded">
                 <Image
                   src={avatar}
@@ -136,7 +149,7 @@ function AppSidebar({ isOpen }) {
               </div>
             </Link>
           ) : (
-            <SignInButton className="w-100" />
+            <SignInButton className="w-100" onClick={handleNavClick('/signin')} />
           )}
         </Card.Footer>
       </Card>
